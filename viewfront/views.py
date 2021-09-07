@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def viewpage(request):
     return render(request,"viewfront/index-4.html")
+
+def viewpage1(request):
+    return render(request,"viewfront/index-4.html")
