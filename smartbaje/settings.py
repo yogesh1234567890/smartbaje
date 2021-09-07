@@ -27,6 +27,8 @@ DEFAULT_APPS = [
     'django.contrib.staticfiles',
 ]
 CUSTOM_APPS=[
+    'accounts',
+    'viewfront',
 
 ]
 THIRD_PARTY_APPS=[
