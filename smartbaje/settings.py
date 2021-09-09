@@ -29,6 +29,7 @@ DEFAULT_APPS = [
 CUSTOM_APPS=[
     'accounts',
     'viewfront',
+    'authentication',
 
 ]
 THIRD_PARTY_APPS=[
@@ -68,7 +69,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'smartbaje.wsgi.application'
 
 
-
+# AUTH_USER_MODEL = 'authentication.models.CustomBackend'
+AUTHENTICATION_BACKENDS = ('authentication.models.CustomBackend','django.contrib.auth.backends.ModelBackend',)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -94,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
