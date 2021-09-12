@@ -647,7 +647,7 @@ $(document).ready(function () {
 
     // Product quickView popup
     $('.btn-quickview').on('click', function (e) {
-        var ajaxUrl = $(this).attr('href');
+        var ajaxUrl = 'localhost:8000/'+$(this).attr('href');
         if ( $.fn.magnificPopup ) {
             setTimeout(function () {
                 $.magnificPopup.open({
