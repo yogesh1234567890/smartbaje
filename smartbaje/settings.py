@@ -31,6 +31,7 @@ CUSTOM_APPS=[
     'authentication',
     'category',
     'store',
+    'cart',
 
 ]
 THIRD_PARTY_APPS=[

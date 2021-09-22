@@ -139,10 +139,10 @@
 
                                         <div class="product-nav product-nav-thumbs">
                                             <a href="#" class="active">
-                                                <img src="assets/images/products/single/1-thumb.jpg" alt="product desc">
+                                                <img src="{% static 'assets/images/products/single/1-thumb.jpg' %}" alt="product desc">
                                             </a>
                                             <a href="#">
-                                                <img src="assets/images/products/single/2-thumb.jpg" alt="product desc">
+                                                <img src="{% static 'assets/images/products/single/2-thumb.jpg' %}" alt="product desc">
                                             </a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .details-filter-row -->
@@ -159,7 +159,6 @@
                                             </select>
                                         </div><!-- End .select-custom -->
 
-                                        <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="details-filter-row details-row-size">
@@ -171,7 +170,7 @@
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="product-details-action">
-                                        {% if single_product.stock <= 0 %} <h5>Out of stock</h5>
+                                        {% if single_product.stock <= 0 %} <span>Out of stock</span>
                                             {% else %}
                                             <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
                                             {% endif %}
