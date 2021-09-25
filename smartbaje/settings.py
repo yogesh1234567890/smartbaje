@@ -27,8 +27,8 @@ DEFAULT_APPS = [
     'django.contrib.staticfiles',
 ]
 CUSTOM_APPS=[
-    'accounts',
     'authentication',
+    'accounts',
     'category',
     'store',
     'cart',
@@ -39,6 +39,8 @@ THIRD_PARTY_APPS=[
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
+
+AUTH_USER_MODEL = 'authentication.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,7 +96,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
