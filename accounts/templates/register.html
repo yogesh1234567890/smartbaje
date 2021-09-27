@@ -1,0 +1,8 @@
+{% include 'base/alerts.html' %}
+<form action="{% url 'auth:register' %}" method="post">
+    {% csrf_token %}
+
+    {{form}}
+
+    <button type="submit">Register</button>
+</form>
