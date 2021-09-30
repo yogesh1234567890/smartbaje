@@ -64,7 +64,7 @@
                                         <div class="cart-product-quantity">
                                             <div class="input-group  input-spinner">
                                                 <div class="input-group-prepend">
-                                                    <a href="{% url 'cart:remove_cart' cart_item.product.id %}"
+                                                    <a href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}"
                                                         style="min-width: 2.5rem" class="btn btn-decrement btn-spinner"
                                                         type="button">
                                                         <i class="icon-minus"></i></a>
@@ -88,7 +88,7 @@
 
                                     <td class="total-col">Rs. {{cart_item.sub_total}}</td>
                                     <td class="remove-col"><a
-                                            href="{% url 'cart:remove_cart_item' cart_item.product.id %}"
+                                            href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}"
                                             class="btn-remove"><i class="icon-close"></i></a></td>
                                 </tr>
                                 {% endfor %}
@@ -143,7 +143,7 @@
                                 </tbody>
                             </table><!-- End .table table-summary -->
 
-                            <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO
+                            <a href="{% url 'cart:checkout' %}" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO
                                 CHECKOUT</a>
                         </div><!-- End .summary -->
 
