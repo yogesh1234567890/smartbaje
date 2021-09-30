@@ -8,6 +8,7 @@ urlpatterns = [
     path('store/', include('store.urls'),name='store'),
     path('cart/', include('cart.urls'),name='cart'),
     path('auth/', include('accounts.urls'), name="auth"),
+    path('oauth/', include('social_django.urls', namespace='social')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

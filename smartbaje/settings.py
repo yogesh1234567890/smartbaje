@@ -29,14 +29,19 @@ DEFAULT_APPS = [
 ]
 CUSTOM_APPS=[
     'accounts',
-    'authentication',
+    # 'authentication',
     'category',
     'store',
     'cart',
 
 ]
 THIRD_PARTY_APPS=[
-
+    'social_django',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
@@ -49,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+
 ]
 
 ROOT_URLCONF = 'smartbaje.urls'
@@ -67,6 +74,8 @@ TEMPLATES = [
                 'category.context_processors.menu_links',
                 'cart.context_processors.counter',
                 'cart.context_processors.cart',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -74,10 +83,40 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'smartbaje.wsgi.application'
 
-AUTH_USER_MODEL = 'accounts.Account'
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         }
+#     }
+# }
 
-# AUTH_USER_MODEL = 'authentication.models.CustomBackend'
-AUTHENTICATION_BACKENDS = ('authentication.models.CustomBackend','django.contrib.auth.backends.ModelBackend',)
+SITE_ID = 1
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'accounts.Account'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', 
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    )
+
+SOCIAL_AUTH_FACEBOOK_KEY = '626850354977824'  # App ID   
+SOCIAL_AUTH_FACEBOOK_SECRET = 'b3ef715d0b9f39a70701912d1523f9ac'  # App Secret
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '442519287427-emdu3pe62jbfdq92j21u6ek729efjn8e.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-oI2GIkEoH15Z8t2sHkcN2nW'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
