@@ -29,13 +29,14 @@ DEFAULT_APPS = [
 ]
 CUSTOM_APPS=[
     'accounts',
-    'authentication',
     'category',
     'store',
     'cart',
+    'orders',
 
 ]
 THIRD_PARTY_APPS=[
+    'rest_framework',
 
 ]
 
@@ -67,6 +68,8 @@ TEMPLATES = [
                 'category.context_processors.menu_links',
                 'cart.context_processors.counter',
                 'cart.context_processors.cart',
+                'accounts.views.register',
+
             ],
         },
     },
