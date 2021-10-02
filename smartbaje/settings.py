@@ -29,19 +29,25 @@ DEFAULT_APPS = [
 ]
 CUSTOM_APPS=[
     'accounts',
-    # 'authentication',
     'category',
     'store',
     'cart',
+    'orders',
 
 ]
 THIRD_PARTY_APPS=[
-    'social_django',
+    # 'social_django',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.facebook',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+
+
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
@@ -74,8 +80,10 @@ TEMPLATES = [
                 'category.context_processors.menu_links',
                 'cart.context_processors.counter',
                 'cart.context_processors.cart',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                # 'social_django.context_processors.backends',
+                # 'social_django.context_processors.login_redirect',
+                'accounts.views.register',
+
             ],
         },
     },
@@ -83,19 +91,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'smartbaje.wsgi.application'
 
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         }
-#     }
-# }
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+}
 
-SITE_ID = 1
+# redirect url = http://127.0.0.1:8000/oauth/complete/google-oauth2/
+
+SITE_ID = 2
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = '/'
@@ -108,15 +118,15 @@ ACCOUNT_USERNAME_REQUIRED = False
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', 
     'allauth.account.auth_backends.AuthenticationBackend',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
     )
 
-SOCIAL_AUTH_FACEBOOK_KEY = '626850354977824'  # App ID   
-SOCIAL_AUTH_FACEBOOK_SECRET = 'b3ef715d0b9f39a70701912d1523f9ac'  # App Secret
+# SOCIAL_AUTH_FACEBOOK_KEY = '626850354977824'  # App ID   
+# SOCIAL_AUTH_FACEBOOK_SECRET = 'b3ef715d0b9f39a70701912d1523f9ac'  # App Secret
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '442519287427-emdu3pe62jbfdq92j21u6ek729efjn8e.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-oI2GIkEoH15Z8t2sHkcN2nW'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '442519287427-emdu3pe62jbfdq92j21u6ek729efjn8e.apps.googleusercontent.com'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-oI2GIkEoH15Z8t2sHkcN2nW'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

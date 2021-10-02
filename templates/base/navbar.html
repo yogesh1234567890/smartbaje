@@ -138,7 +138,7 @@
                                         <img src="{{cart_item.product.image.url}}" alt="product">
                                     </a>
                                 </figure>
-                                <a href="{% url 'cart:remove_cart_item' cart_item.product.id %}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                <a href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                             </div><!-- End .product -->
                             {% endfor %}
 
@@ -152,7 +152,7 @@
 
                         <div class="dropdown-cart-action">
                             <a href="{% url 'cart:cart' %}" class="btn btn-primary">View Cart</a>
-                            <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i
+                            <a href="{% url 'cart:checkout' %}" class="btn btn-outline-primary-2"><span>Checkout</span><i
                                     class="icon-long-arrow-right"></i></a>
                         </div><!-- End .dropdown-cart-total -->
                     </div><!-- End .dropdown-menu -->
