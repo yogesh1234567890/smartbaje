@@ -1,3 +1,6 @@
+{% load static %}
+<!-- {% load socialaccount %} -->
+<!-- {% providers_media_js %} -->
 <!-- Sign in / Register Modal -->
 <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -52,7 +55,7 @@
                                     <p class="text-center">or sign in with</p>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-g">
+                                            <a href="{% provider_login_url 'google' %}" class="btn btn-login btn-g">
                                                 <i class="icon-google"></i>
                                                 Login With Google
                                             </a>
@@ -67,10 +70,6 @@
                                 </div><!-- End .form-choice -->
                             </div><!-- .End .tab-pane -->
 
-
-
-
-
                             <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                                 {% include 'base/alerts.html' %}
                                 <form action="{% url 'auth:register' %}" method="post">
@@ -79,7 +78,10 @@
                                     {{form}}
                                     <div class="form-choice">
                                         <div class="col-sm-6">
-
+                                            <button type="submit" id="register" class="btn btn-outline-primary-2">
+                                                <span>Register</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
                                         </div>
                                     </div><!-- End .form-choice -->
                                 </form>

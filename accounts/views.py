@@ -13,11 +13,11 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 from cart.views import _cart_id
 from cart.models import Cart, CartItem
 import requests
-
-# Create your views here.
 
 
 def register(request):

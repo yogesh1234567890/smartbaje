@@ -8,6 +8,8 @@ urlpatterns = [
     path('store/', include('store.urls'),name='store'),
     path('cart/', include('cart.urls'),name='cart'),
     path('auth/', include('accounts.urls'), name="auth"),
+    path('accounts/', include('allauth.urls')),
+    # path('oauth/', include('social_django.urls', namespace='social')),
     path('orders/', include('orders.urls'), name="orders"),
 ]
 if settings.DEBUG:
