@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'smartbaje.wsgi.application'
 AUTH_USER_MODEL = 'accounts.Account'
 
 # AUTH_USER_MODEL = 'authentication.models.CustomBackend'
-AUTHENTICATION_BACKENDS = ('authentication.models.CustomBackend','django.contrib.auth.backends.ModelBackend',)
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
