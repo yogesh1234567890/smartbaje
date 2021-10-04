@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content%}
         <main class="main">
             <div class="intro-slider-container mb-5">
@@ -99,7 +100,7 @@
                         <h2 class="title">New Arrivals</h2><!-- End .title -->
                     </div><!-- End .heading-left -->
 
-                   <div class="heading-right">
+                   <div class="heading-right" id="mycatlinks">
                         <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" href="{% url 'store:store' %}">All</a>
@@ -309,5 +310,17 @@
             </div><!-- End .container -->
 
         </main><!-- End .main -->
-
-        {% endblock content%}
+{% endblock content%}
+{% block javascript %} 
+    <script type="application/javascript">
+        var header = document.getElementById("mycatlinks");
+        var btns = header.getElementsByClassName("nav-link");
+        for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+            });
+        }
+    </script>
+{% endblock javascript %}>
