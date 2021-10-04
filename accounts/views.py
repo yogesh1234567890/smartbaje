@@ -141,4 +141,4 @@ def login(request):
 def logout(request):
     auth.logout(request)
     messages.success(request, 'You are logged out.')
-    return redirect('auth:login')
+    return redirect('store:store')
