@@ -1,6 +1,5 @@
 from pathlib import Path
 from .config import *
-from .jazzmin_setting import *
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,7 +46,7 @@ THIRD_PARTY_APPS=[
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
-    'jazzmin',
+    # 'jazzmin',
 
 ]
 

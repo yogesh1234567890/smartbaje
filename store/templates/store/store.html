@@ -67,7 +67,14 @@
             </div><!-- End .intro-slider-container -->
 
             <div class="container">
-                <h2 class="title text-center mb-4">Explore Popular Categories</h2><!-- End .title text-center -->
+                <h2 class="title text-center mb-1">Explore Popular Categories</h2><!-- End .title text-center -->
+                    <p class="title text-center mt-1 mb-4">
+                        {% if products %}
+                            {{product_count}} items found
+                        {% else %}
+                            0 Items Found
+                        {% endif %}
+                    </p>
                 
                 <div class="cat-blocks-container">
                     <div class="row">
@@ -97,7 +104,11 @@
             <div class="container new-arrivals">
                 <div class="heading heading-flex mb-3">
                     <div class="heading-left">
-                        <h2 class="title">New Arrivals</h2><!-- End .title -->
+                        {% if 'search' in request.path %}
+                            <h2 class="title">Search Results </h2><!-- End .title -->
+                        {% else %}
+                            <h2 class="title">New Arrivals </h2><!-- End .title -->
+                        {% endif %}
                     </div><!-- End .heading-left -->
 
                    <div class="heading-right" id="mycatlinks">
@@ -141,6 +152,7 @@
                                     }
                                 }
                             }'>
+                            {% if products %}
                             {% for product in products %}
                             <div class="product product-2">
                                 <figure class="product-media">
@@ -175,6 +187,11 @@
                                 </div><!-- End .product-body -->
                             </div><!-- End .product -->
                             {% endfor %}
+                            {% else %}
+                                <div>
+                                    <img src="{% static 'assets/images/code-error.png' %}" alt="Not Found" style="align-items: center; height: 300px; width: auto;">
+                                </div>
+                            {% endif %}
                             
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
