@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, first_name, last_name, username, email, password=None, **extra_fields):
+    def create_user(self, first_name, last_name, username, email, password=None,is_active=False, **extra_fields):
         if not email:
             raise ValueError('User must have an email address')
 
@@ -15,6 +15,7 @@ class MyAccountManager(BaseUserManager):
             username = username,
             first_name = first_name,
             last_name = last_name,
+            is_active=is_active
         )
 
         user.set_password(password)
@@ -50,7 +51,7 @@ class Account(AbstractBaseUser):
     last_login      = models.DateTimeField(auto_now_add=True)
     is_admin        = models.BooleanField(default=False)
     is_staff        = models.BooleanField(default=False)
-    is_active        = models.BooleanField(default=False)
+    is_active        = models.BooleanField(default=True)
     is_superadmin        = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'

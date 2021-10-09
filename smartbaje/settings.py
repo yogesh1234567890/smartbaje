@@ -36,13 +36,13 @@ CUSTOM_APPS=[
 
 ]
 THIRD_PARTY_APPS=[
-    # 'social_django',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.facebook',
+
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
@@ -82,7 +82,7 @@ TEMPLATES = [
                 'cart.context_processors.cart',
                 # 'social_django.context_processors.backends',
                 # 'social_django.context_processors.login_redirect',
-                'accounts.views.register',
+                # 'accounts.views.register',
 
             ],
         },
@@ -101,35 +101,43 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         }
     },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name'
+        ],
+        'EXCHANGE_TOKEN': True,
+        # 'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v7.0',
+    }
 }
 
-# redirect url = http://127.0.0.1:8000/oauth/complete/google-oauth2/
-
 SITE_ID = 2
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'store:store'
 AUTH_USER_MODEL = 'accounts.Account'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_USERNAME_REQUIRED = False
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', 
     'allauth.account.auth_backends.AuthenticationBackend',
-    # 'social_core.backends.facebook.FacebookOAuth2',
-    # 'social_core.backends.google.GoogleOAuth2',
-    )
-
-# SOCIAL_AUTH_FACEBOOK_KEY = '626850354977824'  # App ID   
-# SOCIAL_AUTH_FACEBOOK_SECRET = 'b3ef715d0b9f39a70701912d1523f9ac'  # App Secret
-
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '442519287427-emdu3pe62jbfdq92j21u6ek729efjn8e.apps.googleusercontent.com'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '-oI2GIkEoH15Z8t2sHkcN2nW'
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+     )
 
 AUTH_PASSWORD_VALIDATORS = [
     {
