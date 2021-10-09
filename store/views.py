@@ -2,9 +2,9 @@ from django.http.response import HttpResponse
 from cart.views import _cart_id
 from django.shortcuts import get_object_or_404, render
 from store.models import Product
-# Create your views here.
 from category.models import Category
 from cart.models import *
+from django.db.models import Q
 
 def store(request, category_slug=None):
     categories = None
@@ -33,3 +33,16 @@ def product_detail(request, category_slug, product_slug):
 
     context={'single_product':single_product,'in_cart':in_cart}
     return render(request,'store/product-detail.html',context)
+
+def search(request):
+    if 'search_keyword' in request.GET:
+        search_keyword = request.GET['search_keyword']
+        if search_keyword:
+            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=search_keyword)|Q(name__icontains=search_keyword))
+            product_count = Product.objects.count()
+    context = {
+        'title': 'Search',
+        'products': products,
+        'search_products_count': product_count,
+        }
+    return render(request, 'store/store.html', context)
