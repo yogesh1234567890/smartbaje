@@ -9,7 +9,7 @@ from django.db.models import Q
 def store(request, category_slug=None):
     categories = None
     products = None
-
+    category = Category.objects.all()
     if category_slug != None:
         categories=get_object_or_404(Category,slug=category_slug)
         products=Product.objects.filter(category=categories, is_available=True)
@@ -19,7 +19,7 @@ def store(request, category_slug=None):
         product_count = Product.objects.count()
 
     
-    context = {'products': products, 'product_count': product_count, 'title': 'title'}
+    context = {'products': products, 'product_count': product_count, 'categories':category,'title': 'title'}
     return render(request, 'store/store.html', context)
 
 def product_detail(request, category_slug, product_slug):
