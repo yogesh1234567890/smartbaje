@@ -98,8 +98,7 @@ def place_order(request, total=0, quantity=0,):
             # Store all the billing information inside Order table
             data = Order()
             data.user = current_user
-            data.first_name = form.cleaned_data['first_name']
-            data.last_name = form.cleaned_data['last_name']
+            data.name = form.cleaned_data['full_name']
             data.phone = form.cleaned_data['phone']
             data.email = form.cleaned_data['email']
             data.address_line_1 = form.cleaned_data['address_line_1']

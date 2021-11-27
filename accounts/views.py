@@ -22,51 +22,48 @@ import requests
 
 def register(request):
     if request.method == 'POST' and request.is_ajax:
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            phone_number = form.cleaned_data['phone_number']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            username = first_name+" "+last_name
+        context = {}
+        full_name = request.POST['full_name']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        if password != confirm_password:
+            context['message'] = 'Password and Confirm Password Do Not Match'
+            context['code'] = status.HTTP_400_BAD_REQUEST
+            return JsonResponse(context, status=200)
+        else:
             user = Account.objects.create_user(
-                first_name=first_name, last_name=last_name, email=email, username=username, password=password)
-            user.phone_number = phone_number
-            user.save()
-            
+                full_name=full_name, email=email, password=password)
+        
             # USER ACTIVATION
             current_site = get_current_site(request)
             mail_subject = 'Please activate your account'
             message = render_to_string('account_verification_email.html', {
-                'user': user,
-                'domain': current_site,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
-            })
+                    'user': user,
+                    'domain': current_site,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                })
 
 
-            subject = 'That’s your subject'
-            
+            subject = 'Activation Link'
+                
             html_message = render_to_string('account_verification_email.html', {
-                'user': user,
-                'domain': current_site,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
-            })
+                    'user': user,
+                    'domain': current_site,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                })
             from_email = 'from@yourdjangoapp.com'
             recipient_list=['yogeshbhattarai073@gmail.com',]
             send_mail(subject, from_email=from_email,recipient_list=recipient_list, message=html_message)
             messages.success(
                 request, 'Thank you for registering with us. We have sent you a verification email to your email address. Please verify it.')
-            return redirect('auth:register')
+            context={'message':'Thank you for registering with us. We have sent you a verification email to your email address. Please verify it.'}
+            return JsonResponse(context, status=200)
             # return redirect('/accounts/login/?command=verification&email='+email)
     else:
-        form = RegistrationForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'register.html', context)
+        return JsonResponse({'message': 'Invalid Request'}, status=400)
 
 
 def login(request):
@@ -169,3 +166,9 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Invalid activation link')
         return redirect('auth:register')
+
+
+
+@login_required(login_url = 'login')
+def dashboard(request):
+    return render(request, 'dashboard.html')
