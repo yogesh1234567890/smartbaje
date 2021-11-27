@@ -80,7 +80,7 @@
                     <div class="row">
                         {% for category in categories %}
                         <div class="col-6 col-sm-4 col-lg-2">
-                            <a href="category.html" class="cat-block">
+                            <a href="{% url 'category:products_by_category' category.slug %}" class="cat-block">
                                 <figure>
                                     <span>
                                         <img src="{{category.image.url}}" alt="Category image">
@@ -95,6 +95,7 @@
                     </div><!-- End .row -->
                 </div><!-- End .cat-blocks-container -->
             </div><!-- End .container -->
+
 
             <div class="mb-4"></div><!-- End .mb-4 -->
 

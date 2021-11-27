@@ -9,7 +9,7 @@ from django.db.models import Q
 def store(request, category_slug=None):
     categories = None
     products = None
-
+    category = Category.objects.all()
     if category_slug != None:
         categories=get_object_or_404(Category,slug=category_slug)
         products=Product.objects.filter(category=categories, is_available=True)

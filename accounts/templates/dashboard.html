@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+	<div class="row">
+	<aside class="col-md-3">
+		<!--   SIDEBAR   -->
+		<ul class="list-group">
+			<a class="list-group-item" href="#"> My order history </a>
+			<a class="list-group-item" href="#"> Transactions </a>
+			<!-- <a class="list-group-item" href="#"> Return and refunds </a> -->
+			<a class="list-group-item" href="#">Settings </a>
+			<!-- <a class="list-group-item" href="#"> My Selling Items </a> -->
+			<!-- <a class="list-group-item" href="#"> Received orders </a> -->
+		</ul>
+		<br>
+		<!--   SIDEBAR .//END   -->
+	</aside>
+	<main class="col-md-9">
+		<div class="col-md-9">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="card"style="
+                    background-color: beige;
+                ">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Orders</h5>
+                            <h4>100</h4>
+                            <a href="">View Orders</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card"style="
+                    background-color: aliceblue;
+                ">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Orders</h5>
+                            <h4>100</h4>
+                            <a href="">View Orders</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+	</main>
+</div> <!-- row.// -->
+</div>
+
+{% endblock content%}
