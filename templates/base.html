@@ -8,9 +8,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>SmartBaje</title>
     <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="description" content="SmartBaje">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/images/icons/apple-touch-icon.png' %}">
@@ -40,6 +40,7 @@
 <body>
     <div class="page-wrapper">
         {% include 'base/navbar.html' %}
+        {% include 'base/alerts.html' %}
 
         {% block content %}
 
@@ -202,6 +203,13 @@
     <script src="{% static 'assets/js/main.js' %} "></script>
     <script src="{% static 'assets/js/demos/demo-4.js' %} "></script>
     {% block javascript %} 
+    <script>
+        setTimeout(function(){
+        $('#message').fadeOut('medium')
+    }, 2500)
+
+    </script>
+    
     {% endblock javascript %}
     
 </body>

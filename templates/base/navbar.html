@@ -16,7 +16,7 @@
 
                             <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
                             {% else %}
-                            <li><a href="#">Welcome {{user.username}}!</a></li>
+                            <li><a href="#">Welcome {{user.full_name}}!</a></li>
                             <li><a href="{% url 'auth:logout' %}">Logout</a></li>
 
                             {% endif %}
@@ -155,6 +155,7 @@
         </div><!-- End .container -->
     </div><!-- End .header-middle -->
 
+    {% if request.path != '/auth/dashboard/' %}
     <div class="header-bottom sticky-header">
         <div class="container">
             <div class="header-left">
@@ -193,4 +194,5 @@
             </div> -->
         </div><!-- End .container -->
     </div><!-- End .header-bottom -->
+    {% endif %}
 </header><!-- End .header -->
