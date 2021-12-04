@@ -22,7 +22,7 @@ def counter(request):
     return dict(cart_count = cart_count)
 
 def cart(request, total=0, quantity=0, cart_items=None,grand_total=0, tax=0):
-    try:
+    try:    
         if request.user.is_authenticated:
             cart_items = CartItem.objects.filter(
                 user=request.user, is_active=True)
@@ -39,11 +39,12 @@ def cart(request, total=0, quantity=0, cart_items=None,grand_total=0, tax=0):
                         num += i.quantity
                     cart_items.delete()
                     CartItem.objects.create(product=prod, quantity=num, user=request.user)
-            cart_items1 = CartItem.objects.filter(
-                user=request.user, is_active=True)
+            cart_items1 = CartItem.objects.filter(user=request.user, is_active=True)
         else:
             cart = Cart.objects.get(cart_id = _cart_id(request))
-            cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+            print(cart)
+            cart_items1 = CartItem.objects.filter(cart=cart, is_active=True)
+           
         for cart_item in cart_items1:
             total +=cart_item.product.price * cart_item.quantity
             quantity += cart_item.quantity
@@ -56,7 +57,7 @@ def cart(request, total=0, quantity=0, cart_items=None,grand_total=0, tax=0):
         'tax':tax,
         'grand_total':grand_total,
         'quantity':quantity,
-        'cart_items':cart_items1
+        # 'cart_items':cart_items1
     }
 
     return dict(context)
