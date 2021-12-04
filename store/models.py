@@ -39,3 +39,14 @@ class ProductOffers(models.Model):
 
     def __str__(self):
         return self.offer_name + " " + self.product.name
+
+
+class DealsAndPromotions(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,null=True,blank=True)
+    image = models.ImageField(upload_to="deals")
+    discounted_price = models.FloatField(null=True,blank=True)
+    offer_description = models.TextField(max_length=500,null=True,blank=True)
+
+    def __str__(self):
+        return self.offer_description
+
