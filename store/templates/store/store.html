@@ -21,19 +21,19 @@
                         <div class="container intro-content">
                             <div class="row justify-content-end">
                                 <div class="col-auto col-sm-7 col-md-6 col-lg-5">
+                                    {% if promotion.product %}
                                     <h3 class="intro-subtitle text-third">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
                                     <h1 class="intro-title">{{promotion.product.name}}</h1>
 
                                     <div class="intro-price">
-                                        {% if discounted_price%}
                                         <sup class="intro-old-price">Rs. {{promotion.product.price}}</sup>
-                                        {% if discounted_price%}
+                                        {% if promotion.discounted_price%}
                                         <span class="text-third">
                                             Rs. {{promotion.discounted_price}} 
                                         </span>
                                         {% endif %}
                                     </div><!-- End .intro-price -->
-
+                                    {% endif %}
                                     <a href="category.html" class="btn btn-primary btn-round">
                                         <span>Shop More</span>
                                         <i class="icon-long-arrow-right"></i>
@@ -59,31 +59,6 @@
                     {#    {% endif %} #}
                     {#  </p> #}
                 
-                    <div class="container">
-                        <div class="cat-blocks-container">
-                            <div class="row">
-                                {% if category %}
-                                {% for category in category %}
-                                <div class="col-6 col-sm-4 col-lg-2">
-                                    
-                                    <a href="{% url 'category:products_by_category' category.slug %}" class="cat-block">
-                                        <figure>
-                                            <span>
-                                                <img src="{{category.image.url}}" alt="Category image">
-                                            </span>
-                                        </figure>
-        
-                                        <h3 class="cat-block-title">{{category.name}}</h3><!-- End .cat-block-title -->
-                                    </a>
-                                    
-                                </div><!-- End .col-sm-4 col-lg-2 -->
-                                {% endfor %}
-                                {% endif %}
-                            </div><!-- End .row -->
-                        </div><!-- End .cat-blocks-container -->
-                        
-                    </div><!-- End .container -->
-                    
                 <div class="cat-blocks-container">
                     <div class="row">
                         {% for category in categories %}
