@@ -25,3 +25,17 @@ class Product(models.Model):
 
     def get_url(self):
         return reverse('store:product_detail',args=[self.category.slug,self.slug])
+
+class ProductOffers(models.Model):
+    offer_choices=(
+        ('Smart Offer','Smart Offer'),
+        ('Time Deals','Time Deals'),
+        ('Clearance','Clearance'),
+    )
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    offer_name = models.CharField(choices=offer_choices,max_length=100)
+    offer_description = models.TextField(max_length=500,null=True,blank=True)
+
+    def __str__(self):
+        return self.offer_name + " " + self.product.name
