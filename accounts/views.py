@@ -31,21 +31,17 @@ def register(request):
             context['message'] = 'Password and Confirm Password Do Not Match'
             context['code'] = status.HTTP_400_BAD_REQUEST
             return JsonResponse(context, status=200)
+        if Account.objects.filter(email=email).exists():
+            print('Email already exists')
+            context['message'] = 'Email Already Exists'
+            context['code'] = status.HTTP_400_BAD_REQUEST
+            return JsonResponse(context, status=200)
         else:
             user = Account.objects.create_user(
                 full_name=full_name, email=email, password=password)
         
             # USER ACTIVATION
             current_site = get_current_site(request)
-            mail_subject = 'Please activate your account'
-            message = render_to_string('account_verification_email.html', {
-                    'user': user,
-                    'domain': current_site,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': default_token_generator.make_token(user),
-                })
-
-
             subject = 'Activation Link'
                 
             html_message = render_to_string('account_verification_email.html', {

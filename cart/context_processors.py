@@ -60,7 +60,7 @@ def counter(request):
 
 #     return dict(context)
 
-def cart(request, total=0, quantity=0, cart_items=None,grand_total=0, tax=0):
+def cart(request, total=0, quantity=0, cart_items1=None,grand_total=0, tax=0):
     try:    
         if request.user.is_authenticated:
             cart_items = CartItem.objects.filter(
@@ -80,8 +80,8 @@ def cart(request, total=0, quantity=0, cart_items=None,grand_total=0, tax=0):
                     CartItem.objects.create(product=prod, quantity=num, user=request.user)
             cart_items1 = CartItem.objects.filter(user=request.user, is_active=True)
         else:
-            cart = Cart.objects.get(cart_id = _cart_id(request))
-            print(cart)
+            session = _cart_id(request)
+            cart = Cart.objects.get(cart_id =session)
             cart_items1 = CartItem.objects.filter(cart=cart, is_active=True)
            
         for cart_item in cart_items1:
@@ -96,7 +96,7 @@ def cart(request, total=0, quantity=0, cart_items=None,grand_total=0, tax=0):
         'tax':tax,
         'grand_total':grand_total,
         'quantity':quantity,
-        # 'cart_items':cart_items1
+        'cart_items':cart_items1
     }
 
     return dict(context)
