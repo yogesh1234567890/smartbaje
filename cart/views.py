@@ -12,6 +12,7 @@ def _cart_id(request):  # private function with _
     cart = request.session.session_key
     if not cart:
         cart = request.session.create()
+        print("created")
     return cart
 
 

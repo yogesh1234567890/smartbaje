@@ -124,6 +124,27 @@
 
             <div class="mb-4"></div><!-- End .mb-4 -->
 
+            <div class="container">
+                <div class="row">
+                    {% for i in Product_offers %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="banner banner-overlay banner-overlay-light">
+                            <a href="{{i.product.get_url }}">
+                                <img src="{{i.product.image.url}}" alt="Banner">
+                            </a>
+
+                            <div class="banner-content">
+                                <h4 class="banner-subtitle">Smart Offer</h4><!-- End .banner-subtitle -->
+                                <h3 class="banner-title">{{i.offer_description}} <strong>on <br> {{i.product}}</strong></h3><!-- End .banner-title -->
+                                <a href="{{i.product.get_url }}" class="banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .col-md-4 -->
+                    {% endfor %}
+
+
+                </div><!-- End .row -->
+            </div><!-- End .container -->
 
             <div class="mb-3"></div><!-- End .mb-5 -->
 
@@ -182,6 +203,8 @@
                             {% for product in products %}
                             <div class="product product-2">
                                 <figure class="product-media">
+                                    <span class="product-label label-circle label-top">Top</span>
+                                    <span class="product-label label-circle label-sale">Sale</span>
                                     <a href="{{product.get_url }}">
                                         <img src="{{product.image.url}}" alt="Product image" class="product-image">
                                     </a>
@@ -246,40 +269,7 @@
                                     }
                                 }
                             }'>
-                            {% for product in products %}
-                            <div class="product product-2">
-                                <figure class="product-media">
-                                    <a href="{{product.get_url }}">
-                                        <img src="{{product.image.url}}" alt="Product image" class="product-image">
-                                    </a>
-
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
-                                    </div><!-- End .product-action -->
-
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
-                                        <a href="{{product.image.url}}" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                    </div><!-- End .product-action -->
-                                </figure><!-- End .product-media -->
-
-                                <div class="product-body">
-                                    <div class="product-cat">
-                                        <a href="#">Audio</a>
-                                    </div><!-- End .product-cat -->
-                                    <h3 class="product-title"><a href="{{ product.get_url }}">{{ product.name }}</a></h3><!-- End .product-title -->
-                                    <div class="product-price">
-                                        ${{product.price}}
-                                    </div><!-- End .product-price -->
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 6 Reviews )</span>
-                                    </div><!-- End .rating-container -->
-                                </div><!-- End .product-body -->
-                            </div><!-- End .product -->
-                            {% endfor %}
+                            
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
                 
