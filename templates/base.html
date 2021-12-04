@@ -202,13 +202,17 @@
     <!-- Main JS File -->
     <script src="{% static 'assets/js/main.js' %} "></script>
     <script src="{% static 'assets/js/demos/demo-4.js' %} "></script>
-    {% block javascript %} 
-    <script>
-        setTimeout(function(){
-        $('#message').fadeOut('medium')
-    }, 2500)
-
+    {% if messages %} {% for message in messages %}
+    <script type=text/javascript>
+        toastr.options.progressBar = true;
+        toastr. {
+            {
+                message.tags
+            }
+        }('{{ message }}')
     </script>
+    {% endfor %} {% endif %}
+    {% block javascript %} 
     
     {% endblock javascript %}
     

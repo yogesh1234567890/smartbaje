@@ -68,13 +68,13 @@
 
             <div class="container">
                 <h2 class="title text-center mb-1">Explore Popular Categories</h2><!-- End .title text-center -->
-                    <p class="title text-center mt-1 mb-4">
-                        {% if products %}
-                            {{product_count}} items found
-                        {% else %}
-                            0 Items Found
-                        {% endif %}
-                    </p>
+                {#    <p class="title text-center mt-1 mb-4"> #}
+                    {#        {% if products %} #}
+                    {#      {{product_count}} items found #}
+                    {#    {% else %} #}
+                    {#        0 Items Found #}
+                    {#    {% endif %} #}
+                    {#  </p> #}
                 
                 <div class="cat-blocks-container">
                     <div class="row">
@@ -340,5 +340,9 @@
             this.className += " active";
             });
         }
+        setTimeout(function(){
+        $('#message').fadeOut('medium')
+    }, 2500)
     </script>
+    
 {% endblock javascript %}>

@@ -19,7 +19,11 @@ def store(request, category_slug=None):
         product_count = Product.objects.count()
 
     
-    context = {'products': products, 'product_count': product_count, 'categories':category,'title': 'title'}
+    context = {
+        'products': products, 
+        'product_count': product_count, 
+        'title': 'title'
+        }
     return render(request, 'store/store.html', context)
 
 def product_detail(request, category_slug, product_slug):
@@ -39,7 +43,7 @@ def search(request):
         search_keyword = request.GET['search_keyword']
         if search_keyword:
             products = Product.objects.order_by('-created_date').filter(Q(description__icontains=search_keyword)|Q(name__icontains=search_keyword))
-            product_count = Product.objects.count()
+            product_count = products.count()
     context = {
         'title': 'Search',
         'products': products,
