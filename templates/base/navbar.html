@@ -17,6 +17,7 @@
                             <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
                             {% else %}
                             <li><a href="#">Welcome {{user.full_name}}!</a></li>
+                            <li><a href="{% url 'auth:userprofile' %}">Profile</a></li>
                             <li><a href="{% url 'auth:logout' %}">Logout</a></li>
 
                             {% endif %}
@@ -36,7 +37,7 @@
                     <i class="icon-bars"></i>
                 </button>
 
-                <a href="#" class="logo">
+                <a href="{% url 'store:store' %}" class="logo">
                     <!-- <img src="{% static 'assets/images/demos/demo-4/logo.png' %}" alt="Molla Logo" width="105" height="25"> -->
                     <h3 style="margin-top: 8px;">Smart Baje</h3>
                 </a>
@@ -169,3 +170,11 @@
     </div><!-- End .header-bottom -->
     {% endif %}
 </header><!-- End .header -->
+{% block javascript %} 
+   <script type="application/javascript">
+       setTimeout(function(){
+       $('#message').fadeOut('medium')
+   }, 2500)
+   </script>
+   
+{% endblock javascript %}>
