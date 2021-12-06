@@ -25,3 +25,12 @@
 
  <p class="text-center mt-4">Don't have account? <a href="{% url 'auth:register' %}">Sign up</a></p>
  <br><br>
+
+ {% block javascript %} 
+ <script type="application/javascript">
+     setTimeout(function(){
+     $('#message').fadeOut('medium')
+ }, 2500)
+ </script>
+ 
+{% endblock javascript %}>

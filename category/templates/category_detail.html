@@ -181,4 +181,9 @@
 {% block javascript %}
 <script src="{% static 'assets/js/wNumb.js' %}"></script>
 <script src="{% static 'assets/js/nouislider.min.js' %}"></script>
+<script type="application/javascript">
+    setTimeout(function(){
+    $('#message').fadeOut('medium')
+}, 2500)
+</script>
 {% endblock javascript %}
