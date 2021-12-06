@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Product, ProductOffers
 from django.utils.html import format_html
+from .models import Product, ProductOffers,DealsAndPromotions
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
@@ -13,3 +13,5 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product,ProductAdmin)
 
 admin.site.register(ProductOffers)
+admin.site.register(DealsAndPromotions)
+

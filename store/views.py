@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from cart.views import _cart_id
 from django.shortcuts import get_object_or_404, render
-from store.models import Product, ProductOffers
+from store.models import Product, ProductOffers,DealsAndPromotions
 from category.models import Category
 from cart.models import *
 from django.db.models import Q
@@ -11,6 +11,7 @@ def store(request, category_slug=None):
     products = None
     category = Category.objects.all()
     Product_offers = ProductOffers.objects.all()
+    promotions = DealsAndPromotions.objects.all()
     if category_slug != None:
         categories=get_object_or_404(Category,slug=category_slug)
         products=Product.objects.filter(category=categories, is_available=True)
@@ -26,6 +27,7 @@ def store(request, category_slug=None):
         'title': 'title',
         'categories': category,
         'Product_offers': Product_offers,
+        'promotions': promotions,
         }
     return render(request, 'store/store.html', context)
 
