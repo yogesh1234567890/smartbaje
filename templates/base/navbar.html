@@ -17,7 +17,7 @@
                             <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
                             {% else %}
                             <li><a href="#">Welcome {{user.full_name}}!</a></li>
-                            <li><a href="{% url 'auth:userprofile' %}">Profile</a></li>
+                            <!-- <li><a href="{% url 'auth:userprofile' %}">Profile</a></li> -->
                             <li><a href="{% url 'auth:logout' %}">Logout</a></li>
 
                             {% endif %}
