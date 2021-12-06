@@ -1,180 +1,303 @@
 {% load static %}
+<style>
+  .dropbtn {
+    background-color: #04aa6d;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+</style>
 <header class="header header-intro-clearance header-4">
-    <div class="header-top" style="padding-top: 10px; font-size: 18px;">
-        <div class="container">
-            <div class="header-left">
-                <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
-            </div><!-- End .header-left -->
+  <div class="header-top" style="padding-top: 10px; font-size: 18px">
+    <div class="container">
+      <div class="header-left">
+        <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
+      </div>
+      <!-- End .header-left -->
 
-            <div class="header-right">
+      <div class="header-right">
+        <ul class="top-menu">
+          <li>
+            <a href="#">Links</a>
+            <ul>
+              {% if user.id is None%}
 
-                <ul class="top-menu" >
-                    <li>
-                        <a href="#">Links</a>
-                        <ul>
-                            {% if user.id is None%}
+              <li>
+                <a href="#signin-modal" data-toggle="modal"
+                  >Sign in / Sign up</a
+                >
+              </li>
+              {% else %}
+              <div class="dropdown">
+                <a href="#">Welcome {{user.full_name}}! <i class="fas fa-chevron-circle-down"></i></a>
+                <div class="dropdown-content">
+                  <a href="{% url 'auth:dashboard' %}">Dashboard</a>
+                  <a href="{% url 'auth:logout' %}">Logout</a>
+                </div>
+              </div>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+        <!-- End .top-menu -->
+      </div>
+      <!-- End .header-right -->
+    </div>
+    <!-- End .container -->
+  </div>
+  <!-- End .header-top -->
 
-                            <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
-                            {% else %}
-                            <li><a href="#">Welcome {{user.full_name}}!</a></li>
-                            <!-- <li><a href="{% url 'auth:userprofile' %}">Profile</a></li> -->
-                            <li><a href="{% url 'auth:logout' %}">Logout</a></li>
+  <div class="header-middle">
+    <div class="container">
+      <div class="header-left">
+        <button class="mobile-menu-toggler">
+          <span class="sr-only">Toggle mobile menu</span>
+          <i class="icon-bars"></i>
+        </button>
 
-                            {% endif %}
-                        </ul>
-                    </li>
-                </ul><!-- End .top-menu -->
-            </div><!-- End .header-right -->
+        <a href="{% url 'store:store' %}" class="logo">
+          <!-- <img src="{% static 'assets/images/demos/demo-4/logo.png' %}" alt="Molla Logo" width="105" height="25"> -->
+          <h3 style="margin-top: 8px">Smart Baje</h3>
+        </a>
+      </div>
+      <!-- End .header-left -->
 
-        </div><!-- End .container -->
-    </div><!-- End .header-top -->
-
-    <div class="header-middle">
-        <div class="container">
-            <div class="header-left">
-                <button class="mobile-menu-toggler">
-                    <span class="sr-only">Toggle mobile menu</span>
-                    <i class="icon-bars"></i>
-                </button>
-
-                <a href="{% url 'store:store' %}" class="logo">
-                    <!-- <img src="{% static 'assets/images/demos/demo-4/logo.png' %}" alt="Molla Logo" width="105" height="25"> -->
-                    <h3 style="margin-top: 8px;">Smart Baje</h3>
-                </a>
-            </div><!-- End .header-left -->
-
-            <div class="header-center">
-                <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
-                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                    <form action="{% url 'store:search' %}" method="get">
-                        <div class="header-search-wrapper search-wrapper-wide">
-                            <label for="q" class="sr-only">Search</label>
-                            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                            <input type="search" class="form-control" name="search_keyword" id="q" placeholder="Search product ..." required>
-                        </div><!-- End .header-search-wrapper -->
-                    </form>
-                </div><!-- End .header-search -->
+      <div class="header-center">
+        <div
+          class="
+            header-search header-search-extended header-search-visible
+            d-none d-lg-block
+          "
+        >
+          <a href="#" class="search-toggle" role="button"
+            ><i class="icon-search"></i
+          ></a>
+          <form action="{% url 'store:search' %}" method="get">
+            <div class="header-search-wrapper search-wrapper-wide">
+              <label for="q" class="sr-only">Search</label>
+              <button class="btn btn-primary" type="submit">
+                <i class="icon-search"></i>
+              </button>
+              <input
+                type="search"
+                class="form-control"
+                name="search_keyword"
+                id="q"
+                placeholder="Search product ..."
+                required
+              />
             </div>
+            <!-- End .header-search-wrapper -->
+          </form>
+        </div>
+        <!-- End .header-search -->
+      </div>
 
-            <div class="header-right">
-              
-                <!-- End .compare-dropdown -->
+      <div class="header-right">
+        <!-- End .compare-dropdown -->
 
-                <div class="wishlist">
-                    <a href="wishlist.html" title="Wishlist">
-                        <div class="icon">
-                            <i class="icon-heart-o"></i>
-                            <span class="wishlist-count badge">0</span>
-                        </div>
-                        <p>Wishlist</p>
-                    </a>
-                </div><!-- End .compare-dropdown -->
+        <div class="wishlist">
+          <a href="wishlist.html" title="Wishlist">
+            <div class="icon">
+              <i class="icon-heart-o"></i>
+              <span class="wishlist-count badge">0</span>
+            </div>
+            <p>Wishlist</p>
+          </a>
+        </div>
+        <!-- End .compare-dropdown -->
 
-                <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" data-display="static">
-                        <div class="icon">
-                            <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">{{cart_count}}</span>
-                        </div>
-                        <p>Cart</p>
-                    </a>
+        <div class="dropdown cart-dropdown">
+          <a
+            href="#"
+            class="dropdown-toggle"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            data-display="static"
+          >
+            <div class="icon">
+              <i class="icon-shopping-cart"></i>
+              <span class="cart-count">{{cart_count}}</span>
+            </div>
+            <p>Cart</p>
+          </a>
 
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-cart-products">
-                            {% for cart_item in cart_items %}
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.html">{{cart_item.product.name}}</a>
-                                    </h4>
+          <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-cart-products">
+              {% for cart_item in cart_items %}
+              <div class="product">
+                <div class="product-cart-details">
+                  <h4 class="product-title">
+                    <a href="product.html">{{cart_item.product.name}}</a>
+                  </h4>
 
-                                    <span class="cart-product-info">
-                                        <span class="cart-product-qty">{{cart_item.quantity}}</span>
-                                        x $84.00
-                                    </span>
-                                </div><!-- End .product-cart-details -->
+                  <span class="cart-product-info">
+                    <span class="cart-product-qty">{{cart_item.quantity}}</span>
+                    x $84.00
+                  </span>
+                </div>
+                <!-- End .product-cart-details -->
 
-                                <figure class="product-image-container">
-                                    <a href="{{ cart_item.product.get_url }}" class="product-image">
-                                        <img src="{{cart_item.product.image.url}}" alt="product">
-                                    </a>
-                                </figure>
-                                <a href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product -->
-                            {% endfor %}
+                <figure class="product-image-container">
+                  <a
+                    href="{{ cart_item.product.get_url }}"
+                    class="product-image"
+                  >
+                    <img src="{{cart_item.product.image.url}}" alt="product" />
+                  </a>
+                </figure>
+                <a
+                  href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}"
+                  class="btn-remove"
+                  title="Remove Product"
+                  ><i class="icon-close"></i
+                ></a>
+              </div>
+              <!-- End .product -->
+              {% endfor %}
+            </div>
+            <!-- End .cart-product -->
 
-                        </div><!-- End .cart-product -->
+            <div class="dropdown-cart-total">
+              <span>Total</span>
 
-                        <div class="dropdown-cart-total">
-                            <span>Total</span>
+              <span class="cart-total-price">${{total}}</span>
+            </div>
+            <!-- End .dropdown-cart-total -->
 
-                            <span class="cart-total-price">${{total}}</span>
-                        </div><!-- End .dropdown-cart-total -->
+            <div class="dropdown-cart-action">
+              <a href="{% url 'cart:cart' %}" class="btn btn-primary"
+                >View Cart</a
+              >
+              {% if user.is_authenticated %}
+              <a
+                href="{% url 'cart:checkout' %}"
+                class="btn btn-outline-primary-2"
+                ><span>Checkout</span><i class="icon-long-arrow-right"></i
+              ></a>
+              {% else %}
+              <a
+                href="#signin-modal"
+                data-toggle="modal"
+                class="btn btn-outline-primary-2"
+                ><span>Checkout</span><i class="icon-long-arrow-right"></i
+              ></a>
+              {% endif %}
+            </div>
+            <!-- End .dropdown-cart-total -->
+          </div>
+          <!-- End .dropdown-menu -->
+        </div>
+        <!-- End .cart-dropdown -->
+      </div>
+      <!-- End .header-right -->
+    </div>
+    <!-- End .container -->
+  </div>
+  <!-- End .header-middle -->
 
-                        <div class="dropdown-cart-action">
-                            <a href="{% url 'cart:cart' %}" class="btn btn-primary">View Cart</a>
-                            {% if user.is_authenticated %}
-                            <a href="{% url 'cart:checkout' %}" class="btn btn-outline-primary-2"><span>Checkout</span><i
-                                    class="icon-long-arrow-right"></i></a>
-                            {% else %}
-                            <a href="#signin-modal"data-toggle="modal" class="btn btn-outline-primary-2"><span>Checkout</span><i
-                                class="icon-long-arrow-right"></i></a>
-                                {% endif %}
+  {% if request.path != '/auth/dashboard/' %}
+  <div class="header-bottom sticky-header">
+    <div class="container">
+      <div class="header-left">
+        <div class="dropdown category-dropdown">
+          <a
+            href="#"
+            class="dropdown-toggle"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            data-display="static"
+            title="Browse Categories"
+          >
+            Browse Categories <i class="icon-angle-down"></i>
+          </a>
 
-                        </div><!-- End .dropdown-cart-total -->
-                    </div><!-- End .dropdown-menu -->
-                </div><!-- End .cart-dropdown -->
-            </div><!-- End .header-right -->
-        </div><!-- End .container -->
-    </div><!-- End .header-middle -->
+          <div class="dropdown-menu">
+            <nav class="side-nav">
+              <ul class="menu-vertical sf-arrows">
+                {% for category in links %}
+                <li class="item-lead">
+                  <a href="{{category.get_url}}">{{category.name}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              <!-- End .menu-vertical -->
+            </nav>
+            <!-- End .side-nav -->
+          </div>
+          <!-- End .dropdown-menu -->
+        </div>
+        <!-- End .category-dropdown -->
+      </div>
+      <!-- End .header-left -->
 
-    {% if request.path != '/auth/dashboard/' %}
-    <div class="header-bottom sticky-header">
-        <div class="container">
-            <div class="header-left">
-                <div class="dropdown category-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" data-display="static" title="Browse Categories">
-                        Browse Categories <i class="icon-angle-down"></i>
-                    </a>
+      <div class="header-center">
+        <nav class="main-nav">
+          <ul class="menu sf-arrows">
+            <li class="megamenu-container active">
+              <a href="#" class="sf-with-ul">Home</a>
+            </li>
+          </ul>
+          <!-- End .menu -->
+        </nav>
+        <!-- End .main-nav -->
+      </div>
+      <!-- End .header-center -->
 
-                    <div class="dropdown-menu">
-                        <nav class="side-nav">
-                            <ul class="menu-vertical sf-arrows">
-                                {% for category in links %}
-                                <li class="item-lead"><a href="{{category.get_url}}">{{category.name}}</a></li>
-                                {% endfor %}
-                            </ul><!-- End .menu-vertical -->
-                        </nav><!-- End .side-nav -->
-                    </div><!-- End .dropdown-menu -->
-                </div><!-- End .category-dropdown -->
-            </div><!-- End .header-left -->
-
-            <div class="header-center">
-                <nav class="main-nav">
-                    <ul class="menu sf-arrows">
-                        <li class="megamenu-container active">
-                            <a href="#" class="sf-with-ul">Home</a>
-                        </li>                     
-                        
-                    </ul><!-- End .menu -->
-                </nav><!-- End .main-nav -->
-            </div><!-- End .header-center -->
-
-            <!-- <div class="header-right">
+      <!-- <div class="header-right">
                 <i class="la la-lightbulb-o"></i>
                 <p>Clearance<span class="highlight">&nbsp;Up to 30% Off</span></p>
             </div> -->
-        </div><!-- End .container -->
-    </div><!-- End .header-bottom -->
-    {% endif %}
-</header><!-- End .header -->
-{% block javascript %} 
-   <script type="application/javascript">
-       setTimeout(function(){
-       $('#message').fadeOut('medium')
-   }, 2500)
-   </script>
-   
+    </div>
+    <!-- End .container -->
+  </div>
+  <!-- End .header-bottom -->
+  {% endif %}
+</header>
+<!-- End .header -->
+{% block javascript %}
+<script type="application/javascript">
+  setTimeout(function () {
+    $("#message").fadeOut("medium");
+  }, 2500);
+</script>
+
 {% endblock javascript %}>
