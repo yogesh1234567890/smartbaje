@@ -75,6 +75,7 @@ class UserProfile(models.Model):
         
     )
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    contact_no = models.CharField(max_length=20, null=True, blank=True)
     address_line = models.CharField(max_length=300, null=True, blank=True)
     province = models.CharField(max_length=50, choices=provinces, null=True, blank=True)
     city = models.CharField(max_length=60, null=True, blank=True)

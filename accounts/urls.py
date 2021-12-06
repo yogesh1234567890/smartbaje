@@ -8,7 +8,6 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('userprofile/', views.Profile, name='userprofile'),
-    path('editprofile/', views.Editprofile, name='editprofile'),
     # path('', views.dashboard, name='dashboard'),
 
     path('  /<uidb64>/<token>/', views.activate, name='activate'),
