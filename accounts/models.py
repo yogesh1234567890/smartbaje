@@ -36,7 +36,7 @@ class MyAccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     full_name      = models.CharField(max_length=50, null=True, blank=True)
-    # username        = None
+    username        = None
     email           = models.EmailField(max_length=300, unique=True)
     phone_number    = models.CharField(max_length=50, null=True, blank=True)
 # required

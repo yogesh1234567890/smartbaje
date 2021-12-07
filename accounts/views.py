@@ -185,6 +185,9 @@ def dashboard(request):
 
 @login_required(login_url = 'login')
 def Profile(request):
+    if request.is_ajax():
+#         id=request.GET.get('id').title()
+        print(request)
     userprofile = get_object_or_404(UserProfile, user=request.user)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
@@ -205,23 +208,7 @@ def Profile(request):
     }
     return render(request, 'profile.html', context=context)
 
-# @login_required(login_url = 'login')
-# def Editprofile(request):
-#     userprofile = get_object_or_404(UserProfile, user=request.user)
-#     if request.method == 'POST':
-#         user_form = UserForm(request.POST, instance=request.user)
-#         profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             messages.success(request, 'Profile Updated successfully!')
-#             return redirect('auth:userprofile')
-#     else:
-#         user_form = UserForm(instance=request.user)
-#         profile_form = UserProfileForm(instance=userprofile)
-#     context = {
-#         'user_form' : user_form,
-#         'profile_form' : profile_form,
-#         'userprofile' : userprofile,
-#     }
-#     return render(request, 'editprofile.html', context=context)
+def orders(request):
+    if request.is_ajax():
+        
+        return render(request, 'orders.html')
