@@ -7,6 +7,13 @@
 	<aside class="col-md-3">
 		<!--   SIDEBAR   -->
 		<ul class="list-group">
+            {% if userprofile %}
+                <div class="text-center" style="align-items: center;">
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="{{userprofile.profile_picture.url}}"
+                        alt="User profile picture" width="150" style="border-radius:50%; margin: auto;">
+                </div>
+            {% endif %}
 
 			<a class="list-group-item" href="{% url 'auth:userprofile' %}"> Profile </a>
 			<a class="list-group-item" href="#"> My order history </a>
@@ -28,9 +35,6 @@
                         {% csrf_token %}
                         
                         <div class="container">
-                            {% if userprofile.profile_picture %}
-                            <img src=" {{userprofile.profile_picture.url}} " class="rounded" alt="Profile Picture" width="100">
-                            {% endif %}
                             <div class="col-lg-12">
                                 <h2 class="checkout-title">Profile Details</h2><!-- End .checkout-title -->
                                 <div class="row">
