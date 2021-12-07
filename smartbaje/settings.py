@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'smartbaje.wsgi.application'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
-            'profile',
+            
             'email',
         ],
         'AUTH_PARAMS': {
@@ -183,3 +183,9 @@ MESSAGE_TAGS = {
 ACCOUNT_FORMS = {'signup': 'accounts.forms.RegistrationForm'}
 
 SESSION_COOKIE_SECURE = True
+
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_USER_MODEL_USERNAME_FILED = None
