@@ -1,18 +1,26 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <div class="container">
-  <div class="row">
-    <aside class="col-md-3">
-      <!--   SIDEBAR   -->
-      <ul class="list-group">
-        <a class="list-group-item profile" href="#"> Profile </a>
-        <a class="list-group-item orders" href="#"> My order history </a>
-        <a class="list-group-item" href="#"> Transactions </a>
-        <a class="list-group-item" href="#">Settings </a>
-      </ul>
-      <br />
-      <!--   SIDEBAR .//END   -->
-    </aside>
+	<div class="row">
+	<aside class="col-md-3">
+		<!--   SIDEBAR   -->
+		<ul class="list-group">
+            {% if userprofile %}
+                <div class="text-center" style="align-items: center;">
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="{{userprofile.profile_picture.url}}"
+                        alt="User profile picture" width="150" style="border-radius:50%; margin: auto;">
+                </div>
+            {% endif %}
+
+      <a class="list-group-item profile" href="#"> Profile </a>
+      <a class="list-group-item orders" href="#"> My order history </a>
+      <a class="list-group-item" href="#"> Transactions </a>
+      <a class="list-group-item" href="#">Settings </a>
+
+		</ul>
+		<br>
+  </aside>
     <main class="col-md-9 mainone">
       <!-- End .page-content -->
       <div class="col-md-9">
