@@ -95,13 +95,13 @@ def place_order(request, total=0, quantity=0,):
     if request.method == 'POST':
         print('...........')
         form = OrderForm(request.POST)
+        print(form)
         if form.is_valid():
             # Store all the billing information inside Order table
             data = Order()
-            print(data)
             data.user = current_user
-            data.name = form.cleaned_data['full_name']
-
+            data.name = form.cleaned_data['name']
+            print(data.name)
             data.phone = form.cleaned_data['phone']
             data.email = form.cleaned_data['email']
             data.address_line_1 = form.cleaned_data['address_line_1']

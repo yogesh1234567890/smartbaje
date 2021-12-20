@@ -63,7 +63,11 @@
               </li>
               {% else %}
               <div class="dropdown">
+                {% if user.full_name %}
                 <a href="#">Welcome {{user.full_name}}! <i class="fas fa-chevron-circle-down"></i></a>
+                {%else %}
+                <a href="#">Welcome {{user.username}}! <i class="fas fa-chevron-circle-down"></i></a>
+                {% endif %}
                 <div class="dropdown-content">
                   <a href="{% url 'auth:dashboard' %}">Dashboard</a>
                   <a href="{% url 'auth:logout' %}">Logout</a>
@@ -298,6 +302,29 @@
   setTimeout(function () {
     $("#message").fadeOut("medium");
   }, 2500);
+</script>
+
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{your-app-id}',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{api-version}'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 </script>
 
 {% endblock javascript %}>

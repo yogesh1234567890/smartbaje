@@ -46,7 +46,7 @@ class Order(models.Model):
 
 
     def full_name(self):
-        return f'{self.full_name}'
+        return f'{self.name}'
 
     def full_address(self):
         return f'{self.address_line_1} {self.address_line_2}'
