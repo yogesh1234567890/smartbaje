@@ -4,7 +4,7 @@ from django.urls import reverse
 class Category(models.Model):
 
     class Meta:
-        verbose_name_plural="Categories"
+        verbose_name_plural="Product Categories"
 
     def __str__(self):
         return self.name
