@@ -15,7 +15,7 @@ class Product(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     slug = models.SlugField()
-    description = models.TextField(max_length=500,null=True,blank=True)
+    description = models.TextField(null=True,blank=True)
     image = models.ImageField(upload_to="products")
     stock=models.IntegerField()
     is_available=models.BooleanField(default=True)
@@ -32,20 +32,20 @@ class ProductOffers(models.Model):
         ('Time Deals','Time Deals'),
         ('Clearance','Clearance'),
     )
-
+    class Meta:
+        verbose_name_plural = 'Product Offers'
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     offer_name = models.CharField(choices=offer_choices,max_length=100)
-    offer_description = models.TextField(max_length=500,null=True,blank=True)
+    offer_description = models.TextField(null=True,blank=True)
 
     def __str__(self):
         return self.offer_name + " " + self.product.name
-
 
 class DealsAndPromotions(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE,null=True,blank=True)
     image = models.ImageField(upload_to="deals")
     discounted_price = models.FloatField(null=True,blank=True)
-    offer_description = models.TextField(max_length=500,null=True,blank=True)
+    offer_description = models.TextField(null=True,blank=True)
 
     def __str__(self):
         return self.offer_description
