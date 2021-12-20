@@ -8,9 +8,8 @@ class categoryAdmin(admin.ModelAdmin):
     thumbnail.short_description = 'Category Image'
     prepopulated_fields={'slug':('name',)}
     list_display=['thumbnail', 'name','slug']
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
-
+    # list_display=('image','name', 'slug')
+    search_fields = ["name","slug"]
+    list_display_links = ('name','slug','thumbnail',)
 
 admin.site.register(Category,categoryAdmin)

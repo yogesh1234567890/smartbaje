@@ -9,9 +9,24 @@ class ProductAdmin(admin.ModelAdmin):
     thumbnail.short_description = 'Product Image'
     list_display=('thumbnail','name','price','stock','category','modified_date','is_available')
     prepopulated_fields={'slug':('name',)}
+    search_fields = ["name","category__name"]
+    list_display_links = ('name','category', 'thumbnail',)
 
 admin.site.register(Product,ProductAdmin)
 
-admin.site.register(ProductOffers)
-admin.site.register(DealsAndPromotions)
+class ProductOfferAdmin(admin.ModelAdmin):
+    list_display=('product','offer_name')
+    search_fields = ["offer_name","product__name"]
+    list_display_links = ('offer_name','product',)
+
+admin.site.register(ProductOffers, ProductOfferAdmin)
+class DealsAndPromotionsAdmin(admin.ModelAdmin):
+    def thumbnail(self, object):
+        return format_html('<img src="{}" width="60" height="20">'.format(object.image.url))
+    thumbnail.short_description = 'Product Image'
+    list_display=('thumbnail','product','discounted_price')
+    search_fields = ["discounted_price","product__name"]
+    list_display_links = ('product','thumbnail')
+
+admin.site.register(DealsAndPromotions, DealsAndPromotionsAdmin)
 

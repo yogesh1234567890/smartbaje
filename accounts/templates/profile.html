@@ -9,14 +9,6 @@
         {% csrf_token %}
 
         <div class="container">
-          {% if userprofile.profile_picture %}
-          <img
-            src=" {{userprofile.profile_picture.url}} "
-            class="rounded"
-            alt="Profile Picture"
-            width="100"
-          />
-          {% endif %}
           <div class="col-lg-12">
             <h2 class="checkout-title">Profile Details</h2>
             <!-- End .checkout-title -->
