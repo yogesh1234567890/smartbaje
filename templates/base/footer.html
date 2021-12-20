@@ -12,7 +12,7 @@
                         <div class="widget-call">
                             <i class="icon-phone"></i>
                             Got Question? Call us 24/7
-                            <a href="tel:#">+0123 456 789</a>         
+                            <a href="#">+977-9849407215</a>         
                         </div><!-- End .widget-call -->
                     </div><!-- End .widget about-widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
@@ -24,7 +24,7 @@
                         <ul class="widget-list">
                             <li><a href="#">Our Services</a></li>
                             <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="contact.html">Contact us</a></li>
+                            <li><a href="#">Contact us</a></li>
                         </ul><!-- End .widget-list -->
                     </div><!-- End .widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
@@ -48,7 +48,11 @@
                         <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
                         <ul class="widget-list">
+                            {% if user.id is None%}
                             <li><a href="#">Sign In</a></li>
+                            {% else %}
+                            <li><a href="#">Sign Out</a></li>
+                            {% endif %}
                             <li><a href="cart.html">View Cart</a></li>
                             <li><a href="#">My Wishlist</a></li>
                             <li><a href="#">Track My Order</a></li>
