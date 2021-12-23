@@ -1,6 +1,6 @@
 #branding h1, #branding h1 a:link, #branding h1 a:visited {
 
-    color: rgb(150, 142, 142);
+    color: rgb(235, 225, 225);
 
 }
 
@@ -32,8 +32,8 @@
 body{
     
     /* background: url("https://image.freepik.com/free-vector/e-commerce-background-design_1223-90.jpg"); */
-    /* background-image: url("https://wallpapercave.com/wp/wp2508260.jpg"); */
-    background: rgb(77, 250, 135);
+    background-image: url("https://wallpapercave.com/wp/wp2508260.jpg");
+    /* background: rgb(77, 250, 135); */
     background-repeat: no-repeat;
     background-size: 1000px 5000px;
      /*  background-image: url(../images/Admin.jpg);  */
@@ -42,9 +42,9 @@ body{
 
 #header {
 
-    background:rgb(20, 220, 63);
+    background:rgb(255, 28, 28);
 
-    color: rgb(224, 38, 38);
+    color: rgb(255, 255, 255);
 
     height: 50px
 
@@ -54,7 +54,8 @@ body{
 
 #header a:link, #header a:visited {
 
-    color: rgb(240, 62, 62);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
 
 }
 
@@ -62,7 +63,7 @@ body{
 
 #header a:hover {
 
-    color: rgb(128, 119, 119);
+    color: rgb(124, 241, 94);
 
 }
 
@@ -138,7 +139,7 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
 
 .module p{
 
-    background: crimson;
+    background: rgb(255, 255, 255);
 
     
 
@@ -379,16 +380,16 @@ p{
 #content h1{
 
     text-align: center;
-
+    color: white;
     border: 2px solid white;
-
+    background: rgb(247, 44, 44);
     border-radius: 32px;
 
 }
 
 h2,li{
 
-color: wheat;    
+color: rgb(236, 22, 22);    
 
 }
 
