@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.admin.sites import AdminSite
 
 admin.site.site_header = "Welcome to Smart Baje Administrator"
 admin.site.site_title = "Welcome to Samrt Baje Administrator"
@@ -17,6 +18,7 @@ urlpatterns = [
     path('orders/', include('orders.urls'), name="orders"),
     path('category/', include('category.urls'), name="category"),
 ]
+AdminSite.index_template = 'admin/base_site.html'
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

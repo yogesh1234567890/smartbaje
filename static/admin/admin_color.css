@@ -19,7 +19,14 @@
     text-align: center;
     border: 2px solid white;
     border-radius: 32px;
+   
+
 }
+
+/* #main{
+    background-image: url("/static/admin/ecom-bg-admin-img.jpg");
+    background-size: 1000px 5000px;
+} */
 
 /* h1{
 
@@ -27,18 +34,11 @@
 
 } */
 
- 
-
-body{
+ body{
     
-    /* background: url("https://image.freepik.com/free-vector/e-commerce-background-design_1223-90.jpg"); */
-    background-image: url("https://wallpapercave.com/wp/wp2508260.jpg");
-    /* background: rgb(77, 250, 135); */
-    background-repeat: no-repeat;
-    background-size: 1000px 5000px;
-     /*  background-image: url(../images/Admin.jpg);  */
+    background: rgb(255, 255, 255);
 
-}
+ }
 
 #header {
 
