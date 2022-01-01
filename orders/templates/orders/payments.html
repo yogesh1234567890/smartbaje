@@ -115,15 +115,20 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h2 class="card-title">
-                                            <a href="">
+                                            <button onclick="sendData1()" id="cod-button"
+                                                class="btn btn-outline-primary-2 btn-order btn-block">
                                                 Cash on delivery
-                                            </a>
+                                            </button>
                                         </h2>
                                     </div><!-- End .card-header -->
+                                    <hr>
                                     <div class="card-header">
                                         <h2 class="card-title">
-                                            <button id="payment-button">Pay with Khalti</button>
-
+                                            <button id="payment-button"
+                                                class="btn btn-outline-primary-2 btn-order btn-block"
+                                                style="background-color: #5C2D91; cursor: pointer; color: #fff; border: none; padding: 5px 10px; border-radius: 2px">
+                                                Pay with Khalti
+                                            </button>
                                         </h2>
                                     </div><!-- End .card-header -->
 
@@ -134,10 +139,6 @@
 
                             </div><!-- End .accordion -->
 
-                            <button onclick="sendData()" class="btn btn-outline-primary-2 btn-order btn-block">
-                                Order
-                                <!-- <span class="btn-hover-text">Proceed to Checkout</span> -->
-                            </button>
                         </div><!-- End .summary -->
                     </aside><!-- End .col-lg-3 -->
                 </div><!-- End .row -->
@@ -173,8 +174,8 @@
     var payment_method = 'cash on delivery'
     var redirect_url = "{% url 'orders:order_complete' %}"
 
-    function sendData() {
-
+    function sendData1() {
+        console.log("sending data");
         fetch(url, {
             method: "POST",
             headers: {
@@ -192,7 +193,7 @@
             .then((data) => {
                 window.location.href = redirect_url + '?order_number=' + data.order_number + '&payment_id=' + data.transID;
             });
-    }
+    };
 
 
 
@@ -207,15 +208,39 @@
         "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
         "paymentPreference": [
             "KHALTI",
-            "EBANKING",
-            "MOBILE_BANKING",
-            "CONNECT_IPS",
-            "SCT",
+            // "EBANKING",
+            // "MOBILE_BANKING",
+            // "CONNECT_IPS",
+            // "SCT",
         ],
         "eventHandler": {
             onSuccess(payload) {
                 // hit merchant api for initiating verfication
                 console.log(payload);
+                sendData();
+                function sendData() {
+                    console.log("sending data");
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json",
+                            "X-CSRFToken": csrftoken,
+                        },
+                        body: JSON.stringify({
+                            orderID: orderID,
+                            transID: payload.idx,
+                            payment_method: payment_method,
+                            amount: amount,
+                            token: payload.token,
+                            status: "Paid",
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            window.location.href = redirect_url + '?order_number=' + data.order_number + '&payment_id=' + data.transID;
+                        });
+                };
+
             },
             onError(error) {
                 console.log(error);
@@ -225,12 +250,13 @@
             }
         }
     };
-    var total= {{ grand_total }} *100
+    var total = {{ grand_total }} * 100
     var checkout = new KhaltiCheckout(config);
     var btn = document.getElementById("payment-button");
     btn.onclick = function () {
         // minimum transaction amount must be 10, i.e 1000 in paisa.
-        checkout.show({ amount: total });
+        // checkout.show({ amount: total });
+        checkout.show({ amount: 20000 });
     }
 </script>
 

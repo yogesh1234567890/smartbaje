@@ -11,31 +11,45 @@ from django.template.loader import render_to_string
 import requests
 
 
-url = "https://khalti.com/api/v2/payment/verify/"
-payload = {
-  "token": "QUao9cqFzxPgvWJNi9aKac",
-  "amount": 1000
-}
-headers = {
-  "Authorization": "Key test_secret_key_f59e8b7d18b4499ca40f68195a846e9b"
-}
 
-response = requests.post(url, payload, headers = headers)
-
+def khaltiverify(token,amount):
+    url = "https://khalti.com/api/v2/payment/verify/"
+    payload = {
+    "token": token,
+    "amount": 20000,
+    }
+    headers = {
+    "Authorization": "Key test_secret_key_b7eab1c23c89449eac441634a41ec5dc"
+    }
+    response = requests.post(url, payload, headers = headers)
+    return response.json()
 
 def payments(request):
     body = json.loads(request.body)
     order = Order.objects.get(
         user=request.user, is_ordered=False, order_number=body['orderID'])
 
+    if body.__contains__('token'):
+        verification = khaltiverify(body['token'],body['amount'])
+    
     # Store transaction details inside Payment model
-    payment = Payment(
-        user=request.user,
-        payment_id=body['transID'],
-        payment_method=body['payment_method'],
-        amount_paid=order.order_total,
-        status=body['status'],
-    )
+        payment = Payment(
+            user=request.user,
+            payment_id=body['transID'],
+            payment_method=body['payment_method'],
+            token_id=body['token'],
+            amount_paid=order.order_total,
+            status=body['status'],
+        )
+    else:
+        payment = Payment(
+            user=request.user,
+            payment_id=body['transID'],
+            payment_method=body['payment_method'],
+            amount_paid=order.order_total,
+            status=body['status'],
+        )
+    
     payment.save()
 
     order.payment = payment
