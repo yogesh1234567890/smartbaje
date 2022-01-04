@@ -9,6 +9,20 @@ from store.models import Product
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib import messages
+import requests
+
+
+url = "https://khalti.com/api/v2/payment/verify/"
+payload = {
+  "token": "QUao9cqFzxPgvWJNi9aKac",
+  "amount": 1000
+}
+headers = {
+  "Authorization": "Key test_secret_key_f59e8b7d18b4499ca40f68195a846e9b"
+}
+
+# response = requests.post(url, payload, headers = headers)
+
 
 
 def payments(request):
@@ -94,7 +108,6 @@ def place_order(request, total=0, quantity=0,):
     grand_total = total + tax
 
     if request.method == 'POST':
-        print('...........')
         form = OrderForm(request.POST)
         print("form printing::: ", form)
         if form.is_valid():
