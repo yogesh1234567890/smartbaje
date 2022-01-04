@@ -19,7 +19,7 @@ from rest_framework.response import Response
 from cart.views import _cart_id
 from cart.models import Cart, CartItem
 import requests
-
+from django import template
 
 def register(request):
     if request.method == 'POST' and request.is_ajax:
@@ -44,16 +44,20 @@ def register(request):
             # USER ACTIVATION
             current_site = get_current_site(request)
             subject = 'Activation Link'
-                
-            html_message = render_to_string('account_verification_email.html', {
+            message = "Attention Please"   
+            htmltemp = template.loader.get_template(
+                "account_verification_email.html"
+            ) 
+            c = {
                     'user': user,
                     'domain': current_site,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': default_token_generator.make_token(user),
-                })
-            from_email = 'from@yourdjangoapp.com'
-            recipient_list=['yogeshbhattarai073@gmail.com',]
-            send_mail(subject, from_email=from_email,recipient_list=recipient_list, message=html_message)
+                }
+            html_content = htmltemp.render(c)
+            from_email = 'no_reply@smartdeals.com'
+            recipient_list=[user.email]
+            send_mail(subject, from_email=from_email,recipient_list=recipient_list,message=message, html_message=html_content)
             messages.success(
                 request, 'Thank you for registering with us. We have sent you a verification email to your email address. Please verify it.')
             context={'message':'Thank you for registering with us. We have sent you a verification email to your email address. Please verify it.'}
@@ -297,5 +301,69 @@ def Profile(request):
 
 def orders(request):
     if request.is_ajax():
-        
         return render(request, 'orders.html')
+
+def forgotPassword(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        if Account.objects.filter(email=email).exists():
+            user = Account.objects.get(email__exact=email)
+
+            # Reset password email
+            current_site = get_current_site(request)
+            subject = 'Reset Your Password'
+            message = "Attention Please" 
+            htmltemp = template.loader.get_template(
+                "reset_password_email.html"
+            ) 
+            c = {
+                'user': user,
+                'domain': current_site,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+            }
+            html_content = htmltemp.render(c)          
+            from_email = 'no_reply@smartdeals.com'
+            recipient_list=[user.email]
+            send_mail(subject, from_email=from_email,recipient_list=recipient_list,message=message, html_message=html_content)
+            messages.success(request, 'Password reset email has been sent to your email address.')
+            return redirect('store:store')
+        else:
+            messages.error(request, 'Account does not exist!')
+            return redirect('auth:forgotPassword')
+    return render(request, 'forgotPassword.html')
+
+
+def resetpassword_validate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = Account._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, Account.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        request.session['uid'] = uid
+        messages.success(request, 'Please reset your password')
+        return redirect('auth:resetPassword')
+    else:
+        messages.error(request, 'This link has been expired!')
+        return redirect('store:store')
+    
+
+def resetPassword(request):
+    if request.method == 'POST':
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if password == confirm_password:
+            uid = request.session.get('uid')
+            user = Account.objects.get(pk=uid)
+            user.set_password(password)
+            user.save()
+            messages.success(request, 'Password reset successful')
+            return redirect('store:store')
+        else:
+            messages.error(request, 'Password do not match!')
+            return redirect('auth:resetPassword')
+    else:
+        return render(request, 'resetPassword.html')
