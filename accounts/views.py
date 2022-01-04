@@ -63,6 +63,83 @@ def register(request):
         return JsonResponse({'message': 'Invalid Request'}, status=400)
 
 
+# def login(request):
+#     if request.method == 'POST' and request.is_ajax:
+#         context = {}
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         user = auth.authenticate(email=email, password=password)
+
+#         if user is None:
+#             context['message1'] = 'Invalid Login Details!'
+#             context['message2'] = 'Please Try Again With A Valid Email And Password'
+#             context['code'] = status.HTTP_401_UNAUTHORIZED
+#             return JsonResponse(context, status=200)
+
+#         # elif user is not None and not user.is_active:
+#         #     context['message1'] = 'Sorry, your account is in-Active'
+#         #     context['message2'] = 'Kindly Check Your Email For Activation Link Or Contact Support'
+#         #     context['status'] = 'Error!'
+#         #     context['code']=status.HTTP_401_UNAUTHORIZED
+#         #     return JsonResponse(context, status = 200)
+
+
+#         elif user is not None:
+#             try:
+#                 cart = Cart.objects.get(cart_id=_cart_id(request))
+#                 is_cart_item_exists = CartItem.objects.filter(
+#                     cart=cart).exists()
+#                 if is_cart_item_exists:
+#                     cart_item = CartItem.objects.filter(cart=cart)
+
+#                     # Getting the product variations by cart id
+#                     # product_variation = []
+#                     for item in cart_item:
+#                         item.user = user
+#                         item.save()
+#                     #     variation = item.variations.all()
+#                     #     product_variation.append(list(variation))
+
+#                     # Get the cart items from the user to access his product variations
+#                     # cart_item = CartItem.objects.filter(user=user)
+#                     # ex_var_list = []
+#                     # id = []
+#                     # for item in cart_item:
+#                     #     existing_variation = item.variations.all()
+#                     #     ex_var_list.append(list(existing_variation))
+#                     #     id.append(item.id)
+
+#                     # product_variation = [1, 2, 3, 4, 6]
+#                     # ex_var_list = [4, 6, 3, 5]
+
+#             #         for pr in product_variation:
+#             #             if pr in ex_var_list:
+#             #                 index = ex_var_list.index(pr)
+#             #                 item_id = id[index]
+#             #                 item = CartItem.objects.get(id=item_id)
+#             #                 item.quantity += 1
+#             #                 item.user = user
+#             #                 item.save()
+#             #             else:
+#             #                 cart_item = CartItem.objects.filter(cart=cart)
+#             #                 for item in cart_item:
+#             #                     item.user = user
+#             #                     item.save()
+#             except:
+#                 pass
+#             auth.login(request, user)
+#             context['message'] = 'Successfully authenticated.'
+#             context['status'] = 'Success!'
+#             context['code'] = status.HTTP_200_OK
+#             messages.success(request, 'You are now logged in.')
+#             return JsonResponse(context, status=200)        
+#         else:
+#             context['message'] = 'Invalid credentials'
+#             context['message2'] = 'Kindly Try Again With A Valid Email And Password'
+#             context['code'] = status.HTTP_401_UNAUTHORIZED
+#             return JsonResponse(context, status=200)
+#     return JsonResponse({}, status=200)
+
 def login(request):
     if request.method == 'POST' and request.is_ajax:
         context = {}
@@ -86,45 +163,44 @@ def login(request):
 
         elif user is not None:
             try:
-                cart = Cart.objects.get(cart_id=_cart_id(request))
-                is_cart_item_exists = CartItem.objects.filter(
-                    cart=cart).exists()
+                print("cart::: ",Cart.objects.all())
+                cart = Cart.objects.get(cart = _cart_id(request))
+                is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
+                print("cart item exists::: ", is_cart_item_exists)
                 if is_cart_item_exists:
                     cart_item = CartItem.objects.filter(cart=cart)
+                    product_variation = []
 
-                    # Getting the product variations by cart id
-                    # product_variation = []
                     for item in cart_item:
+                        variation = item.variations.all()
+                        product_variation.append(list(variation))
+                    cart_item = CartItem.objects.filter(user=user)
+                '''
+                existing variations => getting from database
+                current variation => getting from product variation list
+                item_id => getting from database
+                '''
+                ex_var_list = []
+                id = []
+                for item in cart_item:
+                    existing_variation = item.variations.all()
+                    ex_var_list.append(list(existing_variation))
+                    id.append(item.id)
+                
+                for pr in product_variation:
+                    if pr in ex_var_list:
+                        index = ex_var_list.index(pr)
+                        item_id = id[index]
+                        item = CartItem.objects.get(id=item_id)
+                        item.quantity += 1
                         item.user = user
                         item.save()
-                    #     variation = item.variations.all()
-                    #     product_variation.append(list(variation))
+                    else:
+                        cart_item = CartItem.objects.filter(cart=cart)
+                        for item in cart_item:
+                            item.user = user
+                            item.save()
 
-                    # Get the cart items from the user to access his product variations
-                    # cart_item = CartItem.objects.filter(user=user)
-                    # ex_var_list = []
-                    # id = []
-                    # for item in cart_item:
-                    #     existing_variation = item.variations.all()
-                    #     ex_var_list.append(list(existing_variation))
-                    #     id.append(item.id)
-
-                    # product_variation = [1, 2, 3, 4, 6]
-                    # ex_var_list = [4, 6, 3, 5]
-
-            #         for pr in product_variation:
-            #             if pr in ex_var_list:
-            #                 index = ex_var_list.index(pr)
-            #                 item_id = id[index]
-            #                 item = CartItem.objects.get(id=item_id)
-            #                 item.quantity += 1
-            #                 item.user = user
-            #                 item.save()
-            #             else:
-            #                 cart_item = CartItem.objects.filter(cart=cart)
-            #                 for item in cart_item:
-            #                     item.user = user
-            #                     item.save()
             except:
                 pass
             auth.login(request, user)
@@ -132,6 +208,17 @@ def login(request):
             context['status'] = 'Success!'
             context['code'] = status.HTTP_200_OK
             messages.success(request, 'You are now logged in.')
+            url = request.META.get('HTTP_REFERER')
+            try:
+                query = requests.utils.urlparse(url).query
+                print("query::: ", query)
+                params = dict(x.split("=") for x in query.split('&'))
+                if 'next' in params:
+                    nextpage = params['next']
+                    return redirect(nextpage)     
+
+            except:
+                return redirect('auth:dashboard')
             return JsonResponse(context, status=200)        
         else:
             context['message'] = 'Invalid credentials'

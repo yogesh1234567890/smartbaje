@@ -20,12 +20,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DEFAULT_APPS = [
+    'adminlteui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'treebeard'
 ]
 CUSTOM_APPS=[
     'accounts',
@@ -47,8 +49,6 @@ THIRD_PARTY_APPS=[
     'rest_framework.authtoken',
     'dj_rest_auth',
     # 'jazzmin',
-    'adminlteui',
-    'treebeard',
     'django_static_jquery_ui',
     'django_tabbed_changeform_admin',
     'crispy_forms',

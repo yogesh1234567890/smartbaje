@@ -18,7 +18,7 @@ class CartItemAdmin(DjangoTabbedChangeformAdmin, admin.ModelAdmin):
     fieldsets = (
     (None, {
         'classes': ('tab-general',),
-        'fields' : ('product','user','cart', 'quantity', 'is_active') 
+        'fields' : ('product','user','cart', 'variations', 'quantity', 'is_active') 
     }),
     )
 

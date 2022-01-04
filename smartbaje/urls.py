@@ -18,7 +18,7 @@ urlpatterns = [
     path('orders/', include('orders.urls'), name="orders"),
     path('category/', include('category.urls'), name="category"),
 ]
-AdminSite.index_template = 'admin/base_site.html'
+AdminSite.index_template = 'admin/index.html'
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
