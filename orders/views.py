@@ -8,8 +8,20 @@ import json
 from store.models import Product
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.contrib import messages
 import requests
 
+
+url = "https://khalti.com/api/v2/payment/verify/"
+payload = {
+  "token": "QUao9cqFzxPgvWJNi9aKac",
+  "amount": 1000
+}
+headers = {
+  "Authorization": "Key test_secret_key_f59e8b7d18b4499ca40f68195a846e9b"
+}
+
+# response = requests.post(url, payload, headers = headers)
 
 
 def khaltiverify(token,amount):
@@ -121,6 +133,7 @@ def place_order(request, total=0, quantity=0,):
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
+        print("form printing::: ", form)
         if form.is_valid():
             # Store all the billing information inside Order table
             data = Order()
@@ -159,6 +172,8 @@ def place_order(request, total=0, quantity=0,):
                 'grand_total': grand_total,
             }
             return render(request, 'orders/payments.html', context)
+        else:
+            messages.error(request, "Email or Password Incorrect!")
     else:
         return redirect('cart:checkout')
 

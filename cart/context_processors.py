@@ -10,7 +10,7 @@ def counter(request):
         return {}
     else:
         try:
-            cart = Cart.objects.filter(cart_id=_cart_id(request))
+            cart = Cart.objects.filter(cart=_cart_id(request))
             if request.user.is_authenticated:
                 cart_items = CartItem.objects.all().filter(user = request.user)
             else:  
@@ -41,7 +41,7 @@ def counter(request):
 #                     CartItem.objects.create(product=prod, quantity=num, user=request.user)
 #             cart_items1 = CartItem.objects.filter(user=request.user, is_active=True)
 #         else:
-#             cart = Cart.objects.get(cart_id = _cart_id(request))
+#             cart = Cart.objects.get(cart = _cart_id(request))
 #             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
 #         for cart_item in cart_items1:
 #             total +=cart_item.product.price * cart_item.quantity
@@ -81,7 +81,7 @@ def cart(request, total=0, quantity=0, cart_items1=None,grand_total=0, tax=0):
             cart_items1 = CartItem.objects.filter(user=request.user, is_active=True)
         else:
             session = _cart_id(request)
-            cart = Cart.objects.get(cart_id =session)
+            cart = Cart.objects.get(cart =session)
             cart_items1 = CartItem.objects.filter(cart=cart, is_active=True)
            
         for cart_item in cart_items1:
