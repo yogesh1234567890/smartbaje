@@ -7,9 +7,21 @@ class categoryAdmin(admin.ModelAdmin):
         return format_html('<img src="{}" width="30">'.format(object.image.url))
     thumbnail.short_description = 'Category Image'
     prepopulated_fields={'slug':('name',)}
-    list_display=['thumbnail', 'name','slug']
+    list_display=['thumbnail','name','slug']
     # list_display=('image','name', 'slug')
     search_fields = ["name","slug"]
-    list_display_links = ('name','slug','thumbnail',)
+    list_display_links = ('thumbnail','name','slug')
+    list_per_page = 20
+    
+    fieldsets = (
+    (None, {
+        'classes': ('tab-general',),
+        'fields' : ('image','name','slug') 
+    }),
+    )
+
+    tabs = [
+        ("General", ["tab-general"]),
+    ]
 
 admin.site.register(Category,categoryAdmin)

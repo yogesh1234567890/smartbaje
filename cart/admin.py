@@ -12,7 +12,7 @@ class CartItemAdmin(DjangoTabbedChangeformAdmin, admin.ModelAdmin):
     # prepopulated_fields={'slug':('name',)}
     list_display=['thumbnail', 'user','product', 'cart', 'is_active']
     list_filter = ['is_active',]
-    search_fields = ["user__email","product__name", "cart__cart_id"]
+    search_fields = ["user__email","product__name", "cart__cart"]
     list_display_links = ('user','product','cart',)
 
     fieldsets = (

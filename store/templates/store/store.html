@@ -59,24 +59,24 @@
                     {#    {% endif %} #}
                     {#  </p> #}
                 
-                <div class="cat-blocks-container">
-                    <div class="row">
-                        {% for category in categories %}
-                        <div class="col-6 col-sm-4 col-lg-2">
-                            <a href="{% url 'category:products_by_category' category.slug %}" class="cat-block">
-                                <figure>
-                                    <span>
-                                        <img src="{{category.image.url}}" alt="Category image">
-                                    </span>
-                                </figure>
-
-                                <h3 class="cat-block-title">{{category.name}}</h3><!-- End .cat-block-title -->
-                            </a>
-                        </div><!-- End .col-sm-4 col-lg-2 -->
-                        {% endfor %}
-                        
-                    </div><!-- End .row -->
-                </div><!-- End .cat-blocks-container -->
+                    <div class="cat-blocks-container">
+                        <div class="row">
+                            {% for category in categories %}
+                            <div class="col-6 col-sm-4 col-lg-2">
+                                <a href="{% url 'category:products_by_category' category.slug %}" class="cat-block">
+                                    <figure>
+                                        <span>
+                                            <img src="{{category.image.url}}" alt="Category image">
+                                        </span>
+                                    </figure>
+                
+                                    <h3 class="cat-block-title">{{category.name}}</h3><!-- End .cat-block-title -->
+                                </a>
+                            </div><!-- End .col-sm-4 col-lg-2 -->
+                            {% endfor %}
+                            
+                        </div><!-- End .row -->
+                    </div><!-- End .cat-blocks-container -->
             </div><!-- End .container -->
 
 
@@ -160,11 +160,11 @@
                             {% if products %}
                             {% for product in products %}
                             <div class="product product-2">
-                                <figure class="product-media">
+                                <figure class="product-media" style="height: 180px;">
                                     <span class="product-label label-circle label-top">Top</span>
                                     <span class="product-label label-circle label-sale">Sale</span>
-                                    <a href="{{product.get_url }}">
-                                        <img src="{{product.image.url}}" alt="Product image" class="product-image">
+                                    <a href="{{product.get_url }}" style="height: 100%; object-fit: cover;">
+                                        <img src="{{product.image.url}}" alt="Product image" class="product-image" style="height: 100%; object-fit: cover;">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -318,4 +318,4 @@
     }, 2500)
     </script>
     
-{% endblock javascript %}>
+{% endblock javascript %}

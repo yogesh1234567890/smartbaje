@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DEFAULT_APPS = [
+    'online_users',
     'adminlteui',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -86,6 +87,7 @@ TEMPLATES = [
                 'category.context_processors.menu_links',
                 'cart.context_processors.counter',
                 'cart.context_processors.cart',
+                'smartbaje.context_processors.admin_index_processors',
                 # 'social_django.context_processors.backends',
                 # 'social_django.context_processors.login_redirect',
                 # 'accounts.views.register',
