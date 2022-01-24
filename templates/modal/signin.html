@@ -168,6 +168,8 @@
     $('#register_form').submit(function (e) {
         e.preventDefault();
         e.stopPropagation();
+        var spinner='<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div> Please Wait ...'
+        $('#signup').html(spinner);
         var full_name = $.trim($('#register-fullname').val());
         var email = $.trim($('#register-email').val());
         var password = $.trim($('#register-password1').val());
@@ -185,7 +187,8 @@
                 'confirm_password': confirm_password,
 
             },
-            success:function(message){   
+            success:function(message){  
+                $('#signup').html("Register"); 
                 alert(message.message);
                 location.reload();
             },

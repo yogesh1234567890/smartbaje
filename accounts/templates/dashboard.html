@@ -5,10 +5,16 @@
 	<aside class="col-md-3">
 		<!--   SIDEBAR   -->
 		<ul class="list-group">
-            {% if userprofile %}
+            {% if userprofile.profile_picture %}
                 <div class="text-center" style="align-items: center;">
                     <img class="profile-user-img img-fluid img-circle"
                         src="{{userprofile.profile_picture.url}}"
+                        alt="User profile picture" width="150" style="border-radius:50%; margin: auto;">
+                </div>
+            {% else %}
+                <div class="text-center" style="align-items: center;">
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"
                         alt="User profile picture" width="150" style="border-radius:50%; margin: auto;">
                 </div>
             {% endif %}
