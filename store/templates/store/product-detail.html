@@ -67,21 +67,22 @@
                             <!-- End .product-title -->
 
                             <div class="ratings-container">
-                                <div class="ratings">
-                                    <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                </div><!-- End .ratings -->
-                                <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews
-                                    )</a>
+                                <!-- <div class="ratings"> -->
+                                    <!-- <div class="ratings-val" style="width: 80%;"></div> -->
+                                <!-- </div> -->
+                                <!-- End .ratings -->
+                                <!-- <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews
+                                    )</a> -->
                             </div><!-- End .rating-container -->
 
                             <div class="product-price">
-                                {{single_product.price}}
+                                Rs. {{single_product.price}}
                             </div><!-- End .product-price -->
                             
                                 <div class="row" style="margin-left: 4px;">
                                     <div class="item-option-select">
                                         <h6>Choose Color</h6>
-                                        <select name="color" class="form-control" required>
+                                        <select name="color" id="color" class="form-control" required>
                                         <option value="" disabled selected> Choose Color</option>
                                         {% for i in single_product.variation_set.colors %}
                                         <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst }}</option>
@@ -91,13 +92,14 @@
                     
                                     <div class="item-option-select" style="margin-left: 60px;">
                                     <h6>Select Size</h6>
-                                    <select name="size" class="form-control">
+                                    <select name="size" id="size" class="form-control">
                                         <option value="" disabled selected> Choose Size</option>
                                         {% for i in single_product.variation_set.sizes %}
                                         <option value="{{i.variation_value | lower }}">{{i.variation_value | capfirst }}</option>
                                         {% endfor %}
                                     </select>
                                     </div>
+                               
                                 </div> <!-- row.// -->    
                             
                             
@@ -109,17 +111,9 @@
                                         <a href="#" class="btn-product btn-cart"><span>added to cart</span></a>
 
                                     {% else %}
-                                        <a href="{% url 'cart:add_cart' single_product.id %}" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        <button class="btn-product btn-cart" id="btn11"><span>add to cart</span></button>
                                     {% endif %}
                                 {% endif %}
-
-                                    <div class="details-action-wrapper">
-                                        <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add
-                                                to
-                                                Wishlist</span></a>
-                                        <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
-                                                Compare</span></a>
-                                    </div><!-- End .details-action-wrapper -->
                             </div><!-- End .product-details-action -->
 
                             <div class="product-details-footer">
@@ -324,3 +318,33 @@
     </div><!-- End .page-content -->
 </main><!-- End .main -->
 {% endblock content%}
+
+{% block javascript %} 
+<script>
+let color;
+let size;
+$('select').on('change', function() {
+    color = $('#color').val();
+    size = $('#size').val();
+});
+
+$('#btn11').on('click', function(){
+    const csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+        url: "{% url 'cart:add_cart' single_product.id %}",
+        type: 'POST',
+        data: {
+            'csrfmiddlewaretoken': csrftoken,
+            'color': color,
+            'size': size,
+        },
+        success: function(data) {
+            window.location.href = "{% url 'cart:cart' %}";
+            
+        }
+    });
+});
+
+</script>
+{% endblock javascript %}
