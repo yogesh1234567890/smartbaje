@@ -43,7 +43,7 @@
 
                             <tbody>
 
-                                {% for cart_item in cart_items%}
+                                {% for cart_item in cart_items %}
                                 <tr>
                                     <td class="product-col">
                                         <div class="product">
@@ -56,6 +56,10 @@
                                             <h3 class="product-title">
                                                 <a href="{{ cart_item.product.get_url }}">{{cart_item.product.name}}</a>
                                             </h3><!-- End .product-title -->
+                                            <p class="text-muted small">
+                                                {{cart_item.variation}}
+                                                
+                                            </p>
                                         </div><!-- End .product -->
                                     </td>
                                     <td class="price-col">Rs. {{cart_item.product.price}}</td>
