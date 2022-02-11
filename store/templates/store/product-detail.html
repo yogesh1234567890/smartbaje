@@ -39,62 +39,55 @@
                                 <h1 class="product-title">{{single_product.name}}</h1>
                                 <!-- End .product-title -->
 
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews
-                                        )</a>
-                                </div><!-- End .rating-container -->
+                            <div class="ratings-container">
+                                <!-- <div class="ratings"> -->
+                                    <!-- <div class="ratings-val" style="width: 80%;"></div> -->
+                                <!-- </div> -->
+                                <!-- End .ratings -->
+                                <!-- <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews
+                                    )</a> -->
+                            </div><!-- End .rating-container -->
 
-                                <div class="product-price">
-                                    {{single_product.price}}
-                                </div><!-- End .product-price -->
-                                
-                                    <div class="row" style="margin-left: 4px;">
-                                        <div class="item-option-select">
-                                            <h6>Choose Color</h6>
-                                            <select name="color" class="form-control" required>
-                                            <option value="" disabled selected> Choose Color</option>
-                                            {% for i in single_product.variation_set.colors %}
-                                            <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst }}</option>
-                                            {% endfor %}
-                                            </select>
-                                        </div>
-                        
-                                        <div class="item-option-select" style="margin-left: 60px;">
-                                        <h6>Select Size</h6>
-                                        <select name="size" class="form-control">
-                                            <option value="" disabled selected> Choose Size</option>
-                                            {% for i in single_product.variation_set.sizes %}
-                                            <option value="{{i.variation_value | lower }}">{{i.variation_value | capfirst }}</option>
-                                            {% endfor %}
+                            <div class="product-price">
+                                Rs. {{single_product.price}}
+                            </div><!-- End .product-price -->
+                            
+                                <div class="row" style="margin-left: 4px;">
+                                    <div class="item-option-select">
+                                        <h6>Choose Color</h6>
+                                        <select name="color" id="color" class="form-control" required>
+                                        <option value="" disabled selected> Choose Color</option>
+                                        {% for i in single_product.variation_set.colors %}
+                                        <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst }}</option>
+                                        {% endfor %}
                                         </select>
-                                        </div>
-                                    </div> <!-- row.// -->    
-                                
-                                
-                                <div class="product-details-action">
-                                    {% if single_product.stock <= 0 %} 
-                                        <span>Out of stock</span>
+                                    </div>
+                    
+                                    <div class="item-option-select" style="margin-left: 60px;">
+                                    <h6>Select Size</h6>
+                                    <select name="size" id="size" class="form-control">
+                                        <option value="" disabled selected> Choose Size</option>
+                                        {% for i in single_product.variation_set.sizes %}
+                                        <option value="{{i.variation_value | lower }}">{{i.variation_value | capfirst }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                               
+                                </div> <!-- row.// -->    
+                            
+                            
+                            <div class="product-details-action">
+                                {% if single_product.stock <= 0 %} 
+                                    <span>Out of stock</span>
+                                {% else %}
+                                    {% if in_cart %}
+                                        <a href="#" class="btn-product btn-cart"><span>added to cart</span></a>
+
                                     {% else %}
-                                        {% if in_cart %}
-                                            <a href="#" class="btn-product btn-cart"><span>added to cart</span></a>
-
-                                        {% else %}
-                                            <button type="submit" class="btn-product btn-cart"><span>add to cart</span></button>
-                                            {#<a href="{% url 'cart:add_cart' single_product.id %}" class="btn-product btn-cart"><span>add to cart</span></a>#}
-                                        {% endif %}
+                                        <button class="btn-product btn-cart" id="btn11"><span>add to cart</span></button>
                                     {% endif %}
-
-                                        <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add
-                                                    to
-                                                    Wishlist</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
-                                                    Compare</span></a>
-                                        </div><!-- End .details-action-wrapper -->
-                                </div><!-- End .product-details-action -->
+                                {% endif %}
+                            </div><!-- End .product-details-action -->
 
                                 <div class="product-details-footer">
                                     <div class="product-cat">
@@ -299,3 +292,33 @@
     </div><!-- End .page-content -->
 </main><!-- End .main -->
 {% endblock content%}
+
+{% block javascript %} 
+<script>
+let color;
+let size;
+$('select').on('change', function() {
+    color = $('#color').val();
+    size = $('#size').val();
+});
+
+$('#btn11').on('click', function(){
+    const csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+        url: "{% url 'cart:add_cart' single_product.id %}",
+        type: 'POST',
+        data: {
+            'csrfmiddlewaretoken': csrftoken,
+            'color': color,
+            'size': size,
+        },
+        success: function(data) {
+            window.location.href = "{% url 'cart:cart' %}";
+            
+        }
+    });
+});
+
+</script>
+{% endblock javascript %}

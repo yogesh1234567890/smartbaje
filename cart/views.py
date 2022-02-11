@@ -16,10 +16,13 @@ def _cart_id(request):  # private function with _
     return cart
 
 
+
+    
 def add_cart(request, product_id):
+    value = request.POST.dict()
+    print(value)
     current_user = request.user
     product = Product.objects.get(id=product_id)
-    print("this function is working")
     if current_user.is_authenticated:
         product_variation = []
         if request.method == 'POST':
