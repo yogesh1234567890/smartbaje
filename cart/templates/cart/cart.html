@@ -54,10 +54,14 @@
                                             </figure>
 
                                             <h3 class="product-title">
-                                                <a href="{{ cart_item.product.get_url }}">{{cart_item.product.name}}</a>
+                                                <a href="{{ cart_item.product.get_url }}">{{cart_item.product.name}}</a> <br>
                                             </h3><!-- End .product-title -->
                                             <p class="text-muted small">
-                                                {{cart_item.variation}}
+                                                {% if cart_item.variations.all %}
+                                                    {% for item in  cart_item.variations.all %}
+                                                        {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                                                    {% endfor %}
+                                                {% endif %}
                                                 
                                             </p>
                                         </div><!-- End .product -->
@@ -66,25 +70,23 @@
 
                                     <td class="quantity-col">
                                         <div class="cart-product-quantity">
-                                            <div class="input-group  input-spinner">
-                                                <div class="input-group-prepend">
-                                                    <a href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}"
-                                                        style="min-width: 2.5rem" class="btn btn-decrement btn-spinner"
-                                                        type="button">
-                                                        <i class="icon-minus"></i></a>
-                                                </div>
-                                                <input type="text" value="{{ cart_item.quantity }}"
-                                                    style="text-align: center" class="form-control " required=""
-                                                    placeholder="">
-
-                                                <div class="input-group-append">
-                                                    <a href="{% url 'cart:add_cart' cart_item.product.id %}"
-                                                        style="min-width: 2.5rem" class="btn btn-increment btn-spinner"
-                                                        type="button"><i class="icon-plus"></i>
-                                                    </a>
-
-                                                </div>
-                                            </div>
+                                            <div class="col"> 
+                                                <div class="input-group input-spinner">
+                                                    <div class="input-group-prepend">
+                                                    <a href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}" style="min-width: 2.5rem" class="btn btn-decrement btn-spinner" type="button"> <i class="icon-minus"></i> </a>
+                                                    </div>
+                                                    <input type="text" class="form-control"  value="{{cart_item.quantity}}">
+                                                    <div class="input-group-append">
+                                                        <form action="{% url 'cart:add_cart' cart_item.product.id %}" method="post">
+                                                            {% csrf_token %}
+                                                            {% for item in cart_item.variations.all %}
+                                                            <input type="hidden" name="{{ item.variation_category | lower }}" value="{{ item.variation_value | capfirst }}" >
+                                                            {% endfor %}
+                                                            <button class="btn btn-increment btn-spinner"  style="min-width: 3rem" type="submit"> <i class="icon-plus"></i> </button>
+                                                        </form>
+                                                    </div>
+                                                </div> <!-- input-group.// -->
+                                            </div> <!-- col.// -->
                                         </div><!-- End .cart-product-quantity -->
 
                                     </td>

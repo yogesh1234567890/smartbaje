@@ -14,9 +14,6 @@ def _cart_id(request):  # private function with _
         cart = request.session.create()
         print("cart session created")
     return cart
-
-
-
     
 def add_cart(request, product_id):
     value = request.POST.dict()
@@ -32,11 +29,16 @@ def add_cart(request, product_id):
                 print('key::: ',key, 'value::: ',value)
 
                 try:
-                    variation = Variation.objects.get(variation_category__iexact = key, variation_value__iexact = value)
+                    print("code enters inside try block")
+                    variation_all = Variation.objects.all()
+                    # print("get all variation::: ", variation_all)
+                    variation = get_object_or_404(Variation, variation_category__iexact = key, variation_value__iexact = value)
                     print("variations::: ", variation)
                     product_variation.append(variation)
+                    print("getting variation list::: ", product_variation)
 
-                except:
+                except Exception as e:
+                    # print("error occured::: ", e)
                     pass
             # return HttpResponse(color + ' ' + size)
         # product = Product.objects.get(id=product_id)
@@ -55,7 +57,7 @@ def add_cart(request, product_id):
                 existing_variation = item.variations.all()
                 ex_var_list.append(list(existing_variation))
                 id.append(item.id)
-            print(ex_var_list)
+            print("printing exisiting var list::: ",ex_var_list)
 
             if product_variation in ex_var_list:
                 '''increase the cart item quantity'''
@@ -66,9 +68,12 @@ def add_cart(request, product_id):
                 item.save()
             
             else:
+                print("user::: ", request.user)
                 item = CartItem.objects.create(product = product, quantity = 1, user=current_user)
+                print("Getting Item::: ", item)
                 if len(product_variation) > 0:
                     item.variations.clear()
+                    print("product variation:: ", item.variations)
                     item.variations.add(*product_variation)
                 # cart_item.quantity += 1
                 item.save()
@@ -96,7 +101,7 @@ def add_cart(request, product_id):
                 print('key::: ',key, 'value::: ',value)
 
                 try:
-                    variation = Variation.objects.get(variation_category__iexact = key, variation_value__iexact = value)
+                    variation = get_object_or_404(Variation, variation_category__iexact = key, variation_value__iexact = value)
                     print("variations::: ", variation)
                     product_variation.append(variation)
 
@@ -198,6 +203,7 @@ def remove_cart_item(request, product_id, cart_item_id):
 def cart(request, total=0, quantity=0, cart_items=None, grand_total=0, tax=0):
     try:
         if request.user.is_authenticated:
+            print("user::: ", request.user)
             cart_items = CartItem.objects.filter(
                 user=request.user, is_active=True)
         else:
