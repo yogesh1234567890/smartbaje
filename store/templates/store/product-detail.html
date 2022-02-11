@@ -27,44 +27,17 @@
 
                                   
                                 </figure><!-- End .product-main-image -->
-                                <!-- 
-                                        <div id="product-zoom-gallery" class="product-image-gallery">
-                                            <a class="product-gallery-item active" href="#"
-                                                data-image="assets/images/products/single/1.jpg"
-                                                data-zoom-image="assets/images/products/single/1-big.jpg">
-                                                <img src="assets/images/products/single/1-small.jpg" alt="product side">
-                                            </a>
-
-                                            <a class="product-gallery-item" href="#"
-                                                data-image="assets/images/products/single/2.jpg"
-                                                data-zoom-image="assets/images/products/single/2-big.jpg">
-                                                <img src="assets/images/products/single/2-small.jpg"
-                                                    alt="product cross">
-                                            </a>
-
-                                            <a class="product-gallery-item" href="#"
-                                                data-image="assets/images/products/single/3.jpg"
-                                                data-zoom-image="assets/images/products/single/3-big.jpg">
-                                                <img src="assets/images/products/single/3-small.jpg"
-                                                    alt="product with model">
-                                            </a>
-
-                                            <a class="product-gallery-item" href="#"
-                                                data-image="assets/images/products/single/4.jpg"
-                                                data-zoom-image="assets/images/products/single/4-big.jpg">
-                                                <img src="assets/images/products/single/4-small.jpg" alt="product back">
-                                            </a>
-                                        </div> -->
-                                <!-- End .product-image-gallery -->
 
                             </div><!-- End .row -->
                         </div><!-- End .product-gallery -->
                     </div><!-- End .col-md-6 -->
 
                     <div class="col-md-6">
-                        <div class="product-details">
-                            <h1 class="product-title">{{single_product.name}}</h1>
-                            <!-- End .product-title -->
+                        <form action="{% url 'cart:add_cart' single_product.id %}" method="post"> 
+                            {% csrf_token %}
+                            <div class="product-details">
+                                <h1 class="product-title">{{single_product.name}}</h1>
+                                <!-- End .product-title -->
 
                             <div class="ratings-container">
                                 <!-- <div class="ratings"> -->
@@ -111,21 +84,23 @@
                                         <a href="#" class="btn-product btn-cart"><span>added to cart</span></a>
 
                                     {% else %}
-                                        <button class="btn-product btn-cart" id="btn11"><span>add to cart</span></button>
+                                        <button type="submit" class="btn-product btn-cart"><span>add to cart</span></button>
+                                        <!-- <button class="btn-product btn-cart" id="btn11"><span>add to cart</span></button> -->
                                     {% endif %}
                                 {% endif %}
                             </div><!-- End .product-details-action -->
 
-                            <div class="product-details-footer">
-                                <div class="product-cat">
-                                    <span>Category:</span>
-                                    <a href="{% url 'category:products_by_category' single_product.category.slug  %}">{{single_product.category}}</a>,
-                                    
-                                </div><!-- End .product-cat -->
+                                <div class="product-details-footer">
+                                    <div class="product-cat">
+                                        <span>Category:</span>
+                                        <a href="{% url 'category:products_by_category' single_product.category.slug  %}">{{single_product.category}}</a>,
+                                        
+                                    </div><!-- End .product-cat -->
 
-                                
-                            </div><!-- End .product-details-footer -->
-                        </div><!-- End .product-details -->
+                                    
+                                </div><!-- End .product-details-footer -->
+                            </div><!-- End .product-details -->
+                        </form><!-- End .form -->
                     </div><!-- End .col-md-6 -->
                 </div><!-- End .row -->
             </div><!-- End .product-details-top -->

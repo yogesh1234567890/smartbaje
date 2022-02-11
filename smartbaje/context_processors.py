@@ -14,18 +14,18 @@ def admin_index_processors(request):
     transactions = 0
     product_sales = {}
     order = Order.objects.all()
-    for o in order:
-        transactions += 1
-        items = o.orderitem_set.all()
+    # for o in order:
+    #     transactions += 1
+    #     items = o.orderitem_set.all()
         
-        for i in items:
-            print(str(i.product))
-            if str(i.product) not in product_sales:
-                product_sales[str(i.product)] = i.quantity
-            else:
-                product_sales[str(i.product)] = product_sales[str(i.product)] + i.quantity      
+    #     for i in items:
+    #         print(str(i.product))
+    #         if str(i.product) not in product_sales:
+    #             product_sales[str(i.product)] = i.quantity
+    #         else:
+    #             product_sales[str(i.product)] = product_sales[str(i.product)] + i.quantity      
 
-    print((product_sales)) 
+    # print((product_sales)) 
 
     # Find indv product sales
     for pv in product_sales.values():
