@@ -49,11 +49,11 @@ THIRD_PARTY_APPS=[
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
-    # 'jazzmin',
     'django_static_jquery_ui',
     'django_tabbed_changeform_admin',
     'crispy_forms',
     'ckeditor',
+    'import_export',
 
 ]
 

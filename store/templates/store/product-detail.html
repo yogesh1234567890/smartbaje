@@ -52,28 +52,7 @@
                                 Rs. {{single_product.price}}
                             </div><!-- End .product-price -->
                             
-                                <div class="row" style="margin-left: 4px;">
-                                    <div class="item-option-select">
-                                        <h6>Choose Color</h6>
-                                        <select name="color" id="color" class="form-control" required>
-                                        <option value="" disabled selected> Choose Color</option>
-                                        {% for i in single_product.variation_set.colors %}
-                                        <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst }}</option>
-                                        {% endfor %}
-                                        </select>
-                                    </div>
-                    
-                                    <div class="item-option-select" style="margin-left: 60px;">
-                                    <h6>Select Size</h6>
-                                    <select name="size" id="size" class="form-control">
-                                        <option value="" disabled selected> Choose Size</option>
-                                        {% for i in single_product.variation_set.sizes %}
-                                        <option value="{{i.variation_value | lower }}">{{i.variation_value | capfirst }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    </div>
-                               
-                                </div> <!-- row.// -->    
+                                    
                             
                             
                             <div class="product-details-action">
