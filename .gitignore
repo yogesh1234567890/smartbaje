@@ -2,7 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.postgres_data
 
+.azure
+.vscode
 # C extensions
 *.so
 .vscode/
