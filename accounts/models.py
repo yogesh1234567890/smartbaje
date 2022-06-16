@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
@@ -36,7 +38,7 @@ class MyAccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     full_name      = models.CharField(max_length=50, null=True, blank=True)
-    username        = None
+    username        = models.CharField(max_length=100, unique=True, null=True, blank=True)
     email           = models.EmailField(max_length=300, unique=True)
     phone_number    = models.CharField(max_length=50, null=True, blank=True)
 # required
@@ -62,6 +64,12 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
+
+@receiver(post_save, sender= Account)
+def createusername(sender, instance, created,*args, **kwargs):
+    if created:
+        instance.username = instance.email.split("@")[0].lower()
+        instance.save()
 
 class UserProfile(models.Model):
     provinces = (

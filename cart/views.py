@@ -12,7 +12,6 @@ def _cart_id(request):  # private function with _
     cart = request.session.session_key
     if not cart:
         cart = request.session.create()
-        print("cart session created")
     return cart
     
 def add_cart(request, product_id):
@@ -28,19 +27,18 @@ def add_cart(request, product_id):
                 value = request.POST[key]
                 print('key::: ',key, 'value::: ',value)
 
-                try:
-                    print("code enters inside try block")
-                    variation_all = Variation.objects.all()
-                    # print("get all variation::: ", variation_all)
-                    variation = get_object_or_404(Variation, variation_category__iexact = key, variation_value__iexact = value)
-                    print("variations::: ", variation)
-                    print("variations::: ", type(variation))
-                    product_variation.append(variation)
-                    print("getting variation list::: ", product_variation)
+                # try:
+                #     variation_all = Variation.objects.all()
+                #     # print("get all variation::: ", variation_all)
+                #     variation = get_object_or_404(Variation, variation_category__iexact = key, variation_value__iexact = value)
+                #     print("variations::: ", variation)
+                #     print("variations::: ", type(variation))
+                #     product_variation.append(variation)
+                #     print("getting variation list::: ", product_variation)
 
-                except Exception as e:
-                    # print("error occured::: ", e)
-                    pass
+                # except Exception as e:
+                #     # print("error occured::: ", e)
+                #     pass
             # return HttpResponse(color + ' ' + size)
         # product = Product.objects.get(id=product_id)
 
