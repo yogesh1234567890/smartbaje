@@ -86,10 +86,8 @@ def login(request):
 
         elif user is not None:
             try:
-                print("cart::: ",Cart.objects.all())
                 cart = Cart.objects.get(cart = _cart_id(request))
                 is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
-                print("cart item exists::: ", is_cart_item_exists)
                 if is_cart_item_exists:
                     cart_item = CartItem.objects.filter(cart=cart)
                     product_variation = []
@@ -98,11 +96,6 @@ def login(request):
                         variation = item.variations.all()
                         product_variation.append(list(variation))
                     cart_item = CartItem.objects.filter(user=user)
-                '''
-                existing variations => getting from database
-                current variation => getting from product variation list
-                item_id => getting from database
-                '''
                 ex_var_list = []
                 id = []
                 for item in cart_item:
@@ -127,7 +120,9 @@ def login(request):
             except:
                 pass
             auth.login(request, user)
+            print(user.is_superadmin)
             context['message'] = 'Successfully authenticated.'
+            context['is_superadmin'] = user.is_superadmin
             context['status'] = 'Success!'
             context['code'] = status.HTTP_200_OK
             messages.success(request, 'You are now logged in.')
@@ -141,13 +136,15 @@ def login(request):
                     return redirect(nextpage)     
 
             except:
-                return redirect('auth:dashboard')
-            return JsonResponse(context, status=200)        
+                if user.is_superadmin:
+                    return JsonResponse(context, status=200) 
+                else:
+                    return JsonResponse(context, status=200)        
         else:
             context['message'] = 'Invalid credentials'
             context['message2'] = 'Kindly Try Again With A Valid Email And Password'
             context['code'] = status.HTTP_401_UNAUTHORIZED
-            return JsonResponse(context, status=200)
+            return JsonResponse(context, status=400)
     return JsonResponse({}, status=200)
 
 

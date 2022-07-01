@@ -2,7 +2,6 @@
 <!-- {% load socialaccount %} -->
 <!-- Sign in / Register Modal -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=1731712226874269&autoLogAppEvents=1" nonce="RCEcxcBp"></script>
 <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -156,9 +155,12 @@
                 'email': email,
                 'password': password,
             },
-            success:function(data){
-                console.log(data)
-                location.reload();
+            success:function(response){
+                console.log(',,,,,,,,,,,,,,,,');
+                console.log(response.is_superadmin);
+                if(response.is_superadmin == true) location.href = "{% url 'admin:index' %}";
+                else location.href = "{% url 'auth:dashboard' %}";
+                {% comment %} location.reload(); {% endcomment %}
             }
 
         });
