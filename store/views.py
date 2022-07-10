@@ -64,3 +64,16 @@ def search(request):
         'search_products_count': product_count,
         }
     return render(request, 'store/store.html', context)
+
+def all_products(request):
+    try:
+        products = Product.objects.all()
+        product_count = Product.objects.count()
+    except Exception as e:
+        print("Error Occured::: {}".format(e))
+    context = {
+        'title': 'All Products',
+        'products': products,
+        'product_count': product_count,
+        }
+    return render(request, 'store/all_products.html', context)
