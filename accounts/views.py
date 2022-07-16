@@ -30,7 +30,6 @@ def register(request):
             context['code'] = status.HTTP_400_BAD_REQUEST
             return JsonResponse(context, status=200)
         if Account.objects.filter(email=email).exists():
-            print('Email already exists')
             context['message'] = 'Email Already Exists'
             context['code'] = status.HTTP_400_BAD_REQUEST
             return JsonResponse(context, status=200)
@@ -120,7 +119,6 @@ def login(request):
             except:
                 pass
             auth.login(request, user)
-            print(user.is_superadmin)
             context['message'] = 'Successfully authenticated.'
             context['is_superadmin'] = user.is_superadmin
             context['status'] = 'Success!'
@@ -129,7 +127,6 @@ def login(request):
             url = request.META.get('HTTP_REFERER')
             try:
                 query = requests.utils.urlparse(url).query
-                print("query::: ", query)
                 params = dict(x.split("=") for x in query.split('&'))
                 if 'next' in params:
                     nextpage = params['next']
@@ -203,7 +200,7 @@ def Profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Profile Updated successfully!')
-            return redirect('auth:userprofile')
+            return redirect('auth:dashboard')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=userprofile)
