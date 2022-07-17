@@ -44,29 +44,25 @@
                             </div><!-- End .row -->
 
                             <label>Country *</label>
-                            <input type="text" name="country" class="form-control" required>
+                            <input type="text" name="country" class="form-control" value="Nepal" required>
 
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label>Town / City *</label>
-                                    <input type="text" name="city" class="form-control" required>
+                                    <label>District*</label>
+                                    <input type="text" name="city" class="form-control" value="{{user_data.district}}" required>
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
                                     <label>State</label>
-                                    <input type="text" name="state" class="form-control" required>
+                                    <input type="text" name="state" class="form-control" value="{{user_data.province}}" required>
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
                             <label>Street address *</label>
-                            <input type="text" class="form-control" name="address_line_1"
-                                placeholder="House number and Street name" required>
+                            <input type="text" class="form-control" name="address_line_1" address_line
+                                placeholder="House number and Street name" value="{{user_data.city}}" required>
                             <input type="text" class="form-control" name="address_line_2"
                                 placeholder="Appartments, suite, unit etc ...">
-
-
-
-
 
                             <label>Order notes (optional)</label>
                             <textarea class="form-control" cols="30" rows="4" name="order_note"

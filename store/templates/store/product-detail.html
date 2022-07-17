@@ -56,7 +56,7 @@
                             
                             
                             <div class="product-details-action">
-                                {% if single_product.stock <= 0 %} 
+                                {% if single_product.stock == 0 %} 
                                     <span>Out of stock</span>
                                 {% else %}
                                     {% if in_cart %}
@@ -67,7 +67,8 @@
                                         <!-- <button class="btn-product btn-cart" id="btn11"><span>add to cart</span></button> -->
                                     {% endif %}
                                 {% endif %}
-                            </div><!-- End .product-details-action -->
+                            </div>
+                            <!-- End .product-details-action -->
 
                                 <div class="product-details-footer">
                                     <div class="product-cat">
@@ -205,18 +206,18 @@
                                 </div><!-- End .product-action -->
 
                                 <div class="product-action">
-                                    <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
+                                  <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
                                     <!-- <a href="{{product.image.url}}" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a> -->
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
                             <div class="product-body">
-                                <div class="product-cat">
+                                <div class="product-cat"> 
                                     <a href="#">{{product.category}}</a>
                                 </div><!-- End .product-cat -->
                                 <h3 class="product-title"><a href="{{product.get_url }}">{{ product.name }}</a></h3><!-- End .product-title -->
                                 <div class="product-price">
-                                    ${{product.price}}
+                                    Rs.{{product.price}}
                                 </div><!-- End .product-price -->
                                 <!-- <div class="ratings-container">
                                     <div class="ratings">
