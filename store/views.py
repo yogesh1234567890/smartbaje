@@ -58,10 +58,15 @@ def search(request):
         if search_keyword:
             products = Product.objects.order_by('-created_date').filter(Q(description__icontains=search_keyword)|Q(name__icontains=search_keyword))
             product_count = products.count()
+    category = Category.objects.all()
+    Product_offers = ProductOffers.objects.all()
+    promotions = DealsAndPromotions.objects.all()
     context = {
         'title': 'Search',
         'products': products,
         'search_products_count': product_count,
+        'Product_offers': Product_offers,
+        'promotions': promotions,
         }
     return render(request, 'store/store.html', context)
 

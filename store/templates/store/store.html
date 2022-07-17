@@ -34,8 +34,8 @@
                                         {% endif %}
                                     </div><!-- End .intro-price -->
                                     {% endif %}
-                                    <a href="category.html" class="btn btn-primary btn-round">
-                                        <span>Shop More</span>
+                                    <a href="#" class="btn btn-primary btn-round">
+                                        <span>Shop Now</span>
                                         <i class="icon-long-arrow-right"></i>
                                     </a>
                                 </div><!-- End .col-lg-11 offset-lg-1 -->
@@ -160,7 +160,7 @@
                             {% if products %}
                             {% for product in products %}
                             <div class="product product-2">
-                                <figure class="product-media" style="height: 180px;">
+                                <figure class="product-media" style="height: 200px;">
                                     <span class="product-label label-circle label-top">Top</span>
                                     <span class="product-label label-circle label-sale">Sale</span>
                                     <a href="{{product.get_url }}" style="height: 100%; object-fit: cover;">
@@ -172,8 +172,8 @@
                                     </div><!-- End .product-action -->
 
                                     <div class="product-action">
-                                        <!-- <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a> -->
-                                        <!-- <a href="{{product.image.url}}" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a> -->
+                                    <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart" title="Add to cart"><span>Add to Cart</span></a>
+                                   <!-- <a href="{{product.image.url}}" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a> -->
                                     {# </div><!-- End .product-action --> #}
                                 </figure><!-- End .product-media -->
 
@@ -183,7 +183,7 @@
                                     </div><!-- End .product-cat -->
                                     <h3 class="product-title"><a href="{{product.get_url }}">{{ product.name }}</a></h3><!-- End .product-title -->
                                     <div class="product-price">
-                                        ${{product.price}}
+                                        Rs.{{product.price}}
                                     </div><!-- End .product-price -->
                                     <!-- <div class="ratings-container">
                                         <div class="ratings"> -->

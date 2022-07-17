@@ -6,6 +6,7 @@ from cart.models import Cart, CartItem
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from accounts.forms import UserProfileForm
 # Create your views here.
 
 
@@ -245,6 +246,7 @@ def cart(request, total=0, quantity=0, cart_items=None, grand_total=0, tax=0):
 
 @login_required(login_url='auth:login')
 def checkout(request, total=0, quantity=0, cart_items=None):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
     try:
         tax = 0
         grand_total = 0
@@ -258,7 +260,6 @@ def checkout(request, total=0, quantity=0, cart_items=None):
             quantity += cart_item.quantity
         tax = (2 * total)/100
         grand_total = total + tax
-        userprofile = get_object_or_404(UserProfile, user=request.user)
     except ObjectDoesNotExist:
         pass #just ignore
 

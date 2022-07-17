@@ -127,7 +127,7 @@
                                             <button id="payment-button"
                                                 class="btn btn-outline-primary-2 btn-order btn-block"
                                                 style="background-color: #5C2D91; cursor: pointer; color: #fff; border: none; padding: 5px 10px; border-radius: 2px">
-                                                Pay with Khalti
+                                                Online Payment
                                             </button>
                                         </h2>
                                     </div><!-- End .card-header -->
@@ -202,16 +202,16 @@
 <script>
     var config = {
         // replace the publicKey with yours
-        "publicKey": "test_public_key_efca9926e4864d1b8e684f00fcce9506",
+        "publicKey": "test_public_key_8034187b8623477796215dc8cc34d8f0",
         "productIdentity": "1234567890",
         "productName": "Dragon",
         "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
         "paymentPreference": [
             "KHALTI",
-            // "EBANKING",
-            // "MOBILE_BANKING",
-            // "CONNECT_IPS",
-            // "SCT",
+            //"EBANKING",
+            "MOBILE_BANKING",
+            "CONNECT_IPS",
+            //"SCT",
         ],
         "eventHandler": {
             onSuccess(payload) {
@@ -250,7 +250,7 @@
             }
         }
     };
-    var total = {{ grand_total }} * 100
+    var total = {{ grand_total }}*100
     var checkout = new KhaltiCheckout(config);
     var btn = document.getElementById("payment-button");
     btn.onclick = function () {
