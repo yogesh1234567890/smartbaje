@@ -5,6 +5,7 @@ from store.models import Product, ProductOffers,DealsAndPromotions
 from category.models import Category
 from cart.models import *
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def store(request, category_slug=None):
     try:
@@ -74,6 +75,14 @@ def all_products(request):
     try:
         products = Product.objects.all()
         product_count = Product.objects.count()
+        page = request.GET.get('page', 1)
+        paginator = Paginator(products, 6)
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)
     except Exception as e:
         print("Error Occured::: {}".format(e))
     context = {
