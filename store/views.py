@@ -82,3 +82,11 @@ def all_products(request):
         'product_count': product_count,
         }
     return render(request, 'store/all_products.html', context)
+
+def filter_category(request):
+    if request.is_ajax():
+        data=request.body.decode('utf-8')
+        cat_id = data[-1]
+        products = Product.objects.filter(category_id=cat_id)
+        product_count = products.count()
+        return render(request, 'store/filter.html', {'products': products, 'product_count': product_count})

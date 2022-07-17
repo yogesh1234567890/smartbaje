@@ -149,15 +149,15 @@
                       <div class="custom-control custom-checkbox">
                         <input
                           type="checkbox"
-                          class="custom-control-input"
-                          id="cat-1"
+                          class="custom-control-input filter-category"
+                          id="{{category.id}}"
                         />
-                        <label class="custom-control-label" for="cat-1"
+                        <label class="custom-control-label" for="{{category.id}}"
                           >{{category.name}}</label
                         >
                       </div>
                       <!-- End .custom-checkbox -->
-                      <span class="item-count">3</span>
+                      <span class="item-count">{{category.product_set.count}}</span>
                     </div>
                     <!-- End .filter-item -->
                 {% endfor %}
@@ -216,3 +216,26 @@
 </main>
 <!-- End .main -->
 {% endblock content%}
+
+{% block javascript %}
+<script>
+  $(document).on("click", ".filter-category", function (event) {
+    const csrftoken = getCookie('csrftoken');
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'store:filter' %}",
+      data:{
+        'csrfmiddlewaretoken': csrftoken,
+        category: $(this).attr("id"),
+      },
+      success: function (data) {
+        $(".col-lg-9").html(data);
+      },
+    });
+    
+    
+  });
+
+</script>
+
+{% endblock javascript %}>
