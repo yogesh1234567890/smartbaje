@@ -198,9 +198,12 @@ $(document).ready(function () {
                 "value": values
 
             },
-            success: function (data) {
-                $(".change-price-range").html(data);
+            
+            error: function(response){
+                $(".change-price-range").html(response.responseText);
             },
+            success: function (response) {
+            }
             });
 		});
 	}
