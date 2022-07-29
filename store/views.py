@@ -1,4 +1,5 @@
 from django.http.response import HttpResponse
+from django.db.models import Max
 from cart.views import _cart_id
 from django.shortcuts import get_object_or_404, render
 from store.models import Product, ProductOffers,DealsAndPromotions
@@ -83,12 +84,14 @@ def all_products(request):
             products = paginator.page(1)
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
+        slider_price = Product.objects.aggregate(Max('price'))
     except Exception as e:
         print("Error Occured::: {}".format(e))
     context = {
         'title': 'All Products',
         'products': products,
         'product_count': product_count,
+        'slider_max_price': slider_price.get("price__max"),
         }
     return render(request, 'store/all_products.html', context)
 
@@ -99,3 +102,18 @@ def filter_category(request):
         products = Product.objects.filter(category_id=cat_id)
         product_count = products.count()
         return render(request, 'store/filter.html', {'products': products, 'product_count': product_count})
+    
+def filter_price_range(request):
+    if request.is_ajax():
+        data=dict(request.POST.lists())
+        range=data['value[]']
+        asa=[]
+        for i in range:
+            a=[int(s) for s in i.split() if s.isdigit()]
+            asa.append(a[0])
+        products = Product.objects.filter(price__gte=asa[0], price__lte=asa[1])
+        print(products)
+        product_count = products.count()
+        return render(request, 'store/filter.html', {'products': products, 'product_count': product_count})
+    
+    

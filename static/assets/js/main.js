@@ -164,30 +164,44 @@ $(document).ready(function () {
     // Slider For category pages / filter price
     if ( typeof noUiSlider === 'object' ) {
 		var priceSlider  = document.getElementById('price-slider');
-
+		var maxPrice  = $(".slider_max_value").val();
 		// Check if #price-slider elem is exists if not return
 		// to prevent error logs
 		if (priceSlider == null) return;
 
 		noUiSlider.create(priceSlider, {
-			start: [ 0, 750 ],
+			start: [ 0, Math.round(maxPrice) ],
 			connect: true,
-			step: 50,
+			step: 100,
 			margin: 200,
 			range: {
 				'min': 0,
-				'max': 1000
+				'max': Math.round(maxPrice)
 			},
 			tooltips: true,
 			format: wNumb({
 		        decimals: 0,
-		        prefix: '$'
+		        prefix: 'Rs '
 		    })
 		});
 
 		// Update Price Range
 		priceSlider.noUiSlider.on('update', function( values, handle ){
 			$('#filter-price-range').text(values.join(' - '));
+            const csrftoken = getCookie("csrftoken");
+            $.ajax({
+            type: "POST",
+            url: "/filter-price/",
+            dataType: 'json',
+            data: {
+                "csrfmiddlewaretoken": csrftoken,
+                "value": values
+
+            },
+            success: function (data) {
+                $(".change-price-range").html(data);
+            },
+            });
 		});
 	}
 
