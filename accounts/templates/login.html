@@ -2,7 +2,7 @@
 
     <div class="card-body">
     <h4 class="card-title mb-4">Sign in</h4>
-    {% include 'base/alerts.html' %}
+    
     <form action="{% url 'auth:login' %}" method="POST">
       {% csrf_token %}
         <div class="form-group">

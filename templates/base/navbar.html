@@ -62,13 +62,13 @@
                 >
               </li>
               {% else %}
-              <div class="dropdown">
-                Welcome  <a href="#"> <span>{{user.full_name}}</span> <i class="fas fa-chevron-circle-down"></i></a>
-                <div class="dropdown-content">
-                  <a href="{% url 'auth:dashboard' %}">Dashboard</a>
-                  <a href="{% url 'auth:logout' %}">Logout</a>
+                <div class="dropdown">
+                  Welcome  <a href="#"> <span>{{user.full_name}}</span> <i class="fas fa-chevron-circle-down"></i></a>
+                  <div class="dropdown-content">
+                    <a href="{% url 'auth:dashboard' %}">Dashboard</a>
+                    <a href="{% url 'auth:logout' %}">Logout</a>
+                  </div>
                 </div>
-              </div>
               {% endif %}
             </ul>
           </li>

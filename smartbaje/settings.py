@@ -36,6 +36,7 @@ CUSTOM_APPS=[
     'store',
     'cart',
     'orders',
+    'general'
 
 ]
 THIRD_PARTY_APPS=[
