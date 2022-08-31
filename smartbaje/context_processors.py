@@ -32,8 +32,8 @@ def admin_index_processors(request):
         ind_products += int(pv)  
   
 
-    print(ind_products)
-    print(transactions)    
+    # print(ind_products)
+    # print(transactions)    
         
     context = {'online_users' : number_of_active_users, 
         'total_users' : total_users, 
