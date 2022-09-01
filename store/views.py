@@ -114,6 +114,4 @@ def filter_price_range(request):
         products = Product.objects.filter(price__gte=asa[0], price__lte=asa[1])
         print(products)
         product_count = products.count()
-        return render(request, 'store/filter.html', {'products': products, 'product_count': product_count})
-    
-    
+        return render(request, 'store/filter.html', {'products': products, 'product_count': product_count})git 
