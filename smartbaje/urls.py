@@ -5,9 +5,9 @@ from django.urls import path, include
 from django.contrib.admin.sites import AdminSite
 
 from general.views import handle_404
-# admin.site.site_header = "Welcome to Smart Baje Administrator"
-# admin.site.site_title = "Welcome to Samrt Baje Administrator"
-# admin.site.index_title = "Welcome to Administrator Portal"
+admin.site.site_header = "Smart Deals Nepal"
+admin.site.site_title = "Smart Deals Nepal"
+admin.site.index_title = "Smart Deals Nepal "
 
 urlpatterns = [
     path('admin/', admin.site.urls),

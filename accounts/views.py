@@ -52,7 +52,7 @@ def register(request):
                     'token': default_token_generator.make_token(user),
                 }
             html_content = htmltemp.render(c)
-            from_email = 'no_reply@smartdeals.com'
+            from_email = 'no_reply@smartdealsnepal.com'
             recipient_list=[user.email]
             send_mail(subject, from_email=from_email,recipient_list=recipient_list,message=message, html_message=html_content)
             messages.success(
