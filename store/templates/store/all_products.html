@@ -261,6 +261,7 @@
 </main>
 <!-- End .main -->
 {% endblock content%} {% block javascript %}
+<script src="{% static 'assets/js/nouislider.min.js' %}"></script>
 <script>
   $(document).on("click", ".filter-category", function (event) {
     const csrftoken = getCookie("csrftoken");
@@ -278,4 +279,4 @@
   });
 </script>
 
-{% endblock javascript %}>
+{% endblock javascript %}

@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.admin.sites import AdminSite
 
+from general.views import handle_404
 # admin.site.site_header = "Welcome to Smart Baje Administrator"
 # admin.site.site_title = "Welcome to Samrt Baje Administrator"
 # admin.site.index_title = "Welcome to Administrator Portal"
@@ -26,3 +27,5 @@ if settings.DEBUG:
                           document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
+
+handler404 = handle_404

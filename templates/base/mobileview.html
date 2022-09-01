@@ -1,0 +1,87 @@
+{% load static %}
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<div class="mobile-menu-container mobile-menu-light">
+    <div class="mobile-menu-wrapper">
+        <span class="mobile-menu-close"><i class="icon-close"></i></span>
+        
+        <ul class="nav nav-pills-mobile nav-border-anim" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="mobile-menu-link" data-toggle="tab" href="#mobile-menu-tab" role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab" role="tab" aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel" aria-labelledby="mobile-menu-link">
+                <nav class="mobile-nav">
+                    <ul class="mobile-menu">
+                        <li class="active">
+                            <a href="index.html">Home</a>
+
+                            <ul>
+                                <li><a href="index-1.html">01 - furniture store</a></li>
+                                <li><a href="index-2.html">02 - furniture store</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="category.html">Shop</a>
+                            <ul>
+                                <li><a href="cart.html">Cart</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="product.html" class="sf-with-ul">Product</a>
+                            <ul>
+                                <li><a href="product.html">Default</a></li>
+                                <li><a href="product-centered.html">Centered</a></li>
+                                <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Pages</a>
+                            <ul>
+                                <li>
+                                    <a href="about.html">About</a>
+
+                                    <ul>
+                                        <li><a href="about.html">About 01</a></li>
+                                        <li><a href="about-2.html">About 02</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="contact.html">Contact</a>
+
+                                    <ul>
+                                        <li><a href="contact.html">Contact 01</a></li>
+                                        <li><a href="contact-2.html">Contact 02</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="login.html">Login</a></li>
+                                <li><a href="faq.html">FAQs</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav><!-- End .mobile-nav -->
+            </div><!-- .End .tab-pane -->
+            <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
+                <nav class="mobile-cats-nav">
+                    <ul class="mobile-cats-menu">
+                        {% for category in links %}
+                        <li><a class="mobile-cats-lead" href="{{category.get_url}}">{{category.name}}</a></li>
+                        {% endfor %}
+                    </ul><!-- End .mobile-cats-menu -->
+                </nav><!-- End .mobile-cats-nav -->
+            </div><!-- .End .tab-pane -->
+        </div><!-- End .tab-content -->
+
+        <div class="social-icons">
+            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+            <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+        </div><!-- End .social-icons -->
+    </div><!-- End .mobile-menu-wrapper -->
+</div><!-- End .mobile-menu-container -->

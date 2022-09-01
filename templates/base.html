@@ -46,10 +46,13 @@
     </div>
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up" style="color:red;"></i></button>
 
+    {% include 'base/mobileview.html' %}
 
     {% include 'modal/signin.html' %}
 
-
+    <!-- Main JS File -->
+    <script src="{% static 'assets/js/main.js' %} "></script>
+    <script src="{% static 'assets/js/demos/demo-4.js' %} "></script>
    
     <!-- Plugins JS File -->
     <script src="{% static 'assets/js/jquery.min.js' %} "></script>
@@ -63,10 +66,7 @@
     <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %} "></script>
     <script src="{% static 'assets/js/jquery.countdown.min.js' %} "></script>
     <script src="{% static 'assets/js/wNumb.js' %}"></script>
-    <script src="{% static 'assets/js/nouislider.min.js' %}"></script>
-    <!-- Main JS File -->
-    <script src="{% static 'assets/js/main.js' %} "></script>
-    <script src="{% static 'assets/js/demos/demo-4.js' %} "></script>
+    
     {% if messages %} {% for message in messages %}
     <script type=text/javascript>
         toastr.options.progressBar = true;

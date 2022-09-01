@@ -19,3 +19,6 @@ def contact_page(request):
 # Create your views here.
 def aboutUs(request):
     return render(request, 'about-us.html')
+
+def handle_404(request, exception):
+    return render(request, '404page.html')

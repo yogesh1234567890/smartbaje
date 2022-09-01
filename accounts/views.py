@@ -218,7 +218,8 @@ def Profile(request):
 
 def orders(request):
     if request.is_ajax():
-        return render(request, 'orders.html')
+        order_count = OrderProduct.objects.filter(user=request.user).count()
+        return render(request, 'orders.html', context={'order_count':order_count})
 
 def forgotPassword(request):
     if request.method == 'POST':
