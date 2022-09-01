@@ -1,6 +1,7 @@
 from decimal import Context
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from orders.models import OrderProduct
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from .models import Account, UserProfile
 from django.contrib import messages, auth
@@ -73,7 +74,8 @@ def login(request):
             context['message1'] = 'Invalid Login Details!'
             context['message2'] = 'Please Try Again With A Valid Email And Password'
             context['code'] = status.HTTP_401_UNAUTHORIZED
-            return JsonResponse(context, status=200)
+            contexts = {'message': 'Invalid Login Details! Please Try Again With A Valid Email And Password'}
+            return JsonResponse(contexts, status=400)
 
         # elif user is not None and not user.is_active:
         #     context['message1'] = 'Sorry, your account is in-Active'
@@ -174,6 +176,7 @@ def activate(request, uidb64, token):
 @login_required(login_url = 'login')
 def dashboard(request):
     userprofile = get_object_or_404(UserProfile, user=request.user)
+    order_count = OrderProduct.objects.filter(user=request.user).count()
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
@@ -184,6 +187,7 @@ def dashboard(request):
         'user_form' : user_form,
         'profile_form' : profile_form,
         'userprofile' : userprofile,
+        'order_count' : order_count,
     }
     return render(request, 'dashboard.html',context=context)
 

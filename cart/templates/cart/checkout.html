@@ -39,7 +39,11 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Phone *</label>
-                                    <input type="tel" value="{{user_data.user.phone_number}}" name="phone" class="form-control" required>
+                                    <input type="tel" value="
+                                    {% if user_data.user.phone_number %}
+                                    {{user_data.user.phone_number}}
+                                    {% endif %}
+                                    " name="phone" class="form-control" required>
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
@@ -49,18 +53,30 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label>District*</label>
-                                    <input type="text" name="city" class="form-control" value="{{user_data.district}}" required>
+                                    <input type="text" name="city" class="form-control" value="
+                                    {% if user_data.district %}
+                                    {{user_data.district}}
+                                    {% endif %}
+                                    " required>
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
                                     <label>State</label>
-                                    <input type="text" name="state" class="form-control" value="{{user_data.province}}" required>
+                                    <input type="text" name="state" class="form-control" value="
+                                    {% if user_data.province %}
+                                    {{user_data.province}}
+                                    {% endif %}
+                                    " required>
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
                             <label>Street address *</label>
                             <input type="text" class="form-control" name="address_line_1" address_line
-                                placeholder="House number and Street name" value="{{user_data.city}}" required>
+                                placeholder="House number and Street name" value="
+                                {% if user_data.city %}
+                                    {{user_data.city}}
+                                    {% endif %}
+                                " required>
                             <input type="text" class="form-control" name="address_line_2"
                                 placeholder="Appartments, suite, unit etc ...">
 
@@ -94,7 +110,7 @@
                                             <td>Rs. {{total}}</td>
                                         </tr><!-- End .summary-subtotal -->
                                         <tr class="summary-subtotal">
-                                            <td>Tax:</td>
+                                            <td>Tax(13 %):</td>
                                             <td>Rs. {{tax}}</td>
                                         </tr>
                                         <tr>

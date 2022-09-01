@@ -18,7 +18,6 @@ def _cart_id(request):  # private function with _
     
 def add_cart(request, product_id):
     value = request.POST.dict()
-    print(value)
     current_user = request.user
     product = Product.objects.get(id=product_id)
     if current_user.is_authenticated:
@@ -27,7 +26,6 @@ def add_cart(request, product_id):
             for item in request.POST:
                 key = item
                 value = request.POST[key]
-                print('key::: ',key, 'value::: ',value)
 
                 # try:
                 #     variation_all = Variation.objects.all()
@@ -229,7 +227,7 @@ def cart(request, total=0, quantity=0, cart_items=None, grand_total=0, tax=0):
         for cart_item in cart_items:
             total += cart_item.product.price * cart_item.quantity
             quantity += cart_item.quantity
-        tax = (2 * total)/100
+        tax = (13 / 100)*total
         grand_total = total + tax
     except ObjectDoesNotExist:
         pass
@@ -258,7 +256,7 @@ def checkout(request, total=0, quantity=0, cart_items=None):
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
             quantity += cart_item.quantity
-        tax = (2 * total)/100
+        tax = (13 / 100)*total
         grand_total = total + tax
     except ObjectDoesNotExist:
         pass #just ignore

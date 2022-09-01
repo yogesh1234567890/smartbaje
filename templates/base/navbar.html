@@ -45,37 +45,11 @@
   <div class="header-top" style="padding-top: 10px; font-size: 18px">
     <div class="container">
       <div class="header-left">
-        <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
+        <a href="https://www.facebook.com/smartdealsnepalonline"><i class="icon-facebook" style="color: blue;"></i></a>&nbsp;	&nbsp;
+        <a href="https://www.instagram.com/smartdealsnepal"><i class="icon-instagram" style="color: rgba(247, 60, 76, 0.815);"></i></a>
       </div>
       <!-- End .header-left -->
 
-      <div class="header-right">
-        <ul class="top-menu">
-          <li>
-            <a href="#">Links</a>
-            <ul>
-              {% if user.id is None%}
-
-              <li>
-                <a href="#signin-modal" data-toggle="modal"
-                  >Sign in / Sign up</a
-                >
-              </li>
-              {% else %}
-              <div class="dropdown">
-                Welcome  <a href="#"> <span>{{user.full_name}}</span> <i class="fas fa-chevron-circle-down"></i></a>
-                <div class="dropdown-content">
-                  <a href="{% url 'auth:dashboard' %}">Dashboard</a>
-                  <a href="{% url 'auth:logout' %}">Logout</a>
-                </div>
-              </div>
-              {% endif %}
-            </ul>
-          </li>
-        </ul>
-        <!-- End .top-menu -->
-      </div>
-      <!-- End .header-right -->
     </div>
     <!-- End .container -->
   </div>
@@ -226,6 +200,29 @@
         <!-- End .cart-dropdown -->
       </div>
       <!-- End .header-right -->
+      <div class="header-right" style="margin-left:5rem;">
+        <ul class="top-menu">
+          <li>
+            <ul>
+              {% if user.id is None %}
+              <li>
+                <a href="#signin-modal" data-toggle="modal"> Sign in / Sign up </a>
+              </li>
+              {% else %}
+              <div class="dropdown">
+               <a href="#"><i class="icon-user" style="font-size: 3.6rem;"></i></a>
+                <!-- <i class="icon-user"></i> -->
+                <div class="dropdown-content" style="margin-left:1rem; font-size: 18px; ">
+                  <a href="{% url 'auth:dashboard' %}">Dashboard</a>
+                  <a href="{% url 'auth:logout' %}">Logout</a>
+                </div>
+              </div>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+        <!-- End .top-menu -->
+      </div>
     </div>
     <!-- End .container -->
   </div>

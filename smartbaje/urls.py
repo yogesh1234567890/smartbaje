@@ -17,6 +17,8 @@ urlpatterns = [
     # path('oauth/', include('social_django.urls', namespace='social')),
     path('orders/', include('orders.urls'), name="orders"),
     path('category/', include('category.urls'), name="category"),
+    path('general/', include('general.urls'), name="general"),
+    
 ]
 AdminSite.index_template = 'admin/index.html'
 if settings.DEBUG:
