@@ -200,7 +200,7 @@
         <!-- End .cart-dropdown -->
       </div>
       <!-- End .header-right -->
-      <div class="header-right" style="margin-left:5rem;">
+      <div class="dropdown cart-dropdown" style="margin: 3.5rem 0 0 5rem;">
         <ul class="top-menu">
           <li>
             <ul>
@@ -211,8 +211,9 @@
               {% else %}
               <div class="dropdown">
                <a href="#"><i class="icon-user" style="font-size: 3.6rem;"></i></a>
+               <p>{{user.username}}</p>
                 <!-- <i class="icon-user"></i> -->
-                <div class="dropdown-content" style="margin-left:1rem; font-size: 18px; ">
+                <div class="dropdown-content" style="margin-left:1rem; font-size: 15px; ">
                   <a href="{% url 'auth:dashboard' %}">Dashboard</a>
                   <a href="{% url 'auth:logout' %}">Logout</a>
                 </div>
