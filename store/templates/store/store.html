@@ -2,19 +2,38 @@
 {% load static %}
 
 {% block content%}
+
+
+    <style>
+        .intro-slide{
+            background-color: red;
+            transition: all ease 1s;
+        }   
+    </style>
+
         <main class="main">
+            
             <div class="intro-slider-container mb-5">
                 <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" 
                     data-owl-options='{
+
+                        "autoplay": true,
+                    
+                        "responsiveClass": true,
+                        "autoHeight": true,
+                        "autoplayTimeout": 4000,
+                        "smartSpeed": 800,
+                        "nav": true,
+
                         "dots": true,
-                        "nav": false, 
+                        "nav": false,
                         "responsive": {
                             "1200": {
                                 "nav": true,
-                                "dots": false
+                                "dots": true
                             }
                         }
-                    }'>
+                    }' >
                     {% if promotions %}
                     {% for promotion in promotions %}
                     <div class="intro-slide" style="background-image: url({{promotion.image.url}});">
@@ -44,10 +63,11 @@
                     </div><!-- End .intro-slide -->
                     {% endfor %}
                     {% endif %}
-                     </div><!-- End .intro-slider owl-carousel owl-simple -->
+                    </div><!-- End .intro-slider owl-carousel owl-simple -->
 
                 <span class="slider-loader"></span><!-- End .slider-loader -->
             </div><!-- End .intro-slider-container -->
+
 
             <div class="container">
                 <h2 class="title text-center mb-1">Explore Popular Categories</h2><!-- End .title text-center -->
@@ -304,11 +324,23 @@
             </div><!-- End .container -->
 
         </main><!-- End .main -->
+
 {% endblock content%}
+
+
+
 {% block javascript %} 
+
+
+
     <script type="application/javascript">
+
+        var counter = 1
         var header = document.getElementById("mycatlinks");
         var btns = header.getElementsByClassName("nav-link");
+
+
+
         for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function() {
             var current = document.getElementsByClassName("active");
@@ -319,6 +351,8 @@
         setTimeout(function(){
         $('#message').fadeOut('medium')
     }, 2500)
+
+
     </script>
     
 {% endblock javascript %}

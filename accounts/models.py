@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Create your models here.
 
+
 class MyAccountManager(BaseUserManager):
     def create_user(self, full_name, email, password=None,is_active=False, **extra_fields):
         if not email:
@@ -90,8 +91,8 @@ class UserProfile(models.Model):
     district = models.CharField(max_length=30, null=True, blank=True)
     profile_picture = models.ImageField(upload_to = 'userprofile/', null = True, blank=True)
 
-    def __str__(self):
-        return self.user.full_name
+    # def __str__(self):
+    #     return self.user.full_name
 
     def full_address(self):
         return f'{self.address_line}'

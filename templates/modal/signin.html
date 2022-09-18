@@ -1,4 +1,17 @@
 {% load static %}
+{% load socialaccount %}
+
+{% providers_media_js %}
+
+
+
+<style>
+    #googel-login-btn{
+        cursor: pointer;
+    }
+
+</style>
+
 <!-- {% load socialaccount %} -->
 <!-- Sign in / Register Modal -->
 <div id="fb-root"></div>
@@ -59,13 +72,20 @@
                                     <p class="text-center">or sign in with</p>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-g">
-                                                <i class="icon-google"></i>
-                                                Login With Google
-                                            </a>
+                                            <form id  = "google-login" action="{% provider_login_url 'google' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div id="googel-login-btn" class="btn btn-login btn-g">
+                                                    <div class="google-section">
+                                                        <i class="icon-google"></i>
+                                                    </div>
+                                                    Login With Google
+                                                </div>
+                                            </form>
+
+
                                         </div><!-- End .col-6 -->
                                         <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-f">
+                                            <a href="{% provider_login_url 'facebook' method = 'js_sdk' %}" class="btn btn-login btn-f">
                                                 <i class="icon-facebook-f"></i>
                                                 Login With Facebook
                                             </a>
@@ -127,6 +147,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
+
+    let google_login_btn = document.getElementById('google-login')
+    let google_login = document.getElementById('googel-login-btn')
+
+
+
+    // $('#divID').click(function(){
+        
+    
+    // }
+
+
+
+    google_login.addEventListener('click', ()=>{
+
+        console.log("hello")
+        google_login_btn.submit()
+    })
+
+    // console.log("helllo")
+
+    // google_login_btn.addEventListener('submit', (e)=>{
+    //     e.preventDefault()
+
+    //     console.log("helllo")
+    // })
+
+    console.log(google_login_btn)
+
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -145,6 +194,7 @@
 
     $('#login').click(function (e) {
         e.preventDefault();
+        
         e.stopPropagation();
         var email = $.trim($('#singin-email').val());
         var password = $.trim($('#singin-password').val());
@@ -162,7 +212,7 @@
                 console.log(response.is_superadmin);
                 if(response.is_superadmin == true) location.href = "{% url 'admin:index' %}";
                 else location.href = "{% url 'auth:dashboard' %}";
-                {% comment %} location.reload(); {% endcomment %}
+                // {% comment %} location.reload(); {% endcomment %}
             },
             error:function(response){
                 $('#msg').html(response.responseJSON.message);
