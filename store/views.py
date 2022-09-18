@@ -18,12 +18,16 @@ def store(request, category_slug=None):
         promotions = DealsAndPromotions.objects.all()
         brands = Brand.objects.all()
         if category_slug != None:
+
             categories=get_object_or_404(Category,slug=category_slug)
             products=Product.objects.filter(category=categories, is_available=True)
             product_count=products.count()
         else:
+
             products = Product.objects.all().filter(is_available=True)
-            product_count = Product.objects.count()
+            print("error------------------------------------")
+            # product_count = Product.objects.count()
+            product_count = products.count()
 
         
         context = {
@@ -35,7 +39,9 @@ def store(request, category_slug=None):
             'promotions': promotions,
             'brands': brands,
             }
+
     except Exception as e:
+        context = {}
         print("Error Occured::: {}".format(e))
         
     return render(request, 'store/store.html', context)

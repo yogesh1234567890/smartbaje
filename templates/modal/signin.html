@@ -1,4 +1,15 @@
 {% load static %}
+{% load socialaccount %}
+
+{% providers_media_js %}
+
+<style>
+    #google-login-btn{
+        cursor: pointer;
+    }
+
+</style>
+
 <!-- {% load socialaccount %} -->
 <!-- Sign in / Register Modal -->
 <div id="fb-root"></div>
@@ -59,13 +70,20 @@
                                     <p class="text-center">or sign in with</p>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-g">
-                                                <i class="icon-google"></i>
-                                                Login With Google
-                                            </a>
+                                            <form id  = "google-login" action="{% provider_login_url 'google' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div id="google-login-btn" class="btn btn-login btn-g">
+                                                    <div class="google-section">
+                                                        <i class="icon-google"></i>
+                                                    </div>
+                                                    Login With Google
+                                                </div>
+                                            </form>
+
+
                                         </div><!-- End .col-6 -->
                                         <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-f">
+                                            <a href="{% provider_login_url 'facebook' method = 'js_sdk' %}" class="btn btn-login btn-f">
                                                 <i class="icon-facebook-f"></i>
                                                 Login With Facebook
                                             </a>
@@ -127,6 +145,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
+    let google_login_btn = document.getElementById('google-login')
+    let google_login = document.getElementById('google-login-btn')
+
+    google_login.addEventListener('click', ()=>{
+        google_login_btn.submit()
+    })
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

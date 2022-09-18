@@ -2,16 +2,29 @@
 {% load static %}
 
 {% block content%}
+    <style>
+        .intro-slide{
+            background-color: red;
+            transition: all ease 1s;
+        }   
+    </style>
         <main class="main">
             <div class="intro-slider-container mb-5">
                 <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" 
                     data-owl-options='{
+                        "autoplay": true,
+                    
+                        "responsiveClass": true,
+                        "autoHeight": true,
+                        "autoplayTimeout": 4000,
+                        "smartSpeed": 800,
+                        "nav": true,
                         "dots": true,
-                        "nav": false, 
+                        "nav": false,
                         "responsive": {
                             "1200": {
                                 "nav": true,
-                                "dots": false
+                                "dots": true
                             }
                         }
                     }'>
