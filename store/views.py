@@ -2,6 +2,7 @@ from django.http.response import HttpResponse
 from django.db.models import Max
 from cart.views import _cart_id
 from django.shortcuts import get_object_or_404, render
+from general.models import Brand
 from store.models import Product, ProductOffers,DealsAndPromotions
 from category.models import Category
 from cart.models import *
@@ -15,6 +16,7 @@ def store(request, category_slug=None):
         category = Category.objects.all()
         Product_offers = ProductOffers.objects.all()
         promotions = DealsAndPromotions.objects.all()
+        brands = Brand.objects.all()
         if category_slug != None:
             categories=get_object_or_404(Category,slug=category_slug)
             products=Product.objects.filter(category=categories, is_available=True)
@@ -31,6 +33,7 @@ def store(request, category_slug=None):
             'categories': category,
             'Product_offers': Product_offers,
             'promotions': promotions,
+            'brands': brands,
             }
     except Exception as e:
         print("Error Occured::: {}".format(e))
@@ -76,6 +79,7 @@ def all_products(request):
     try:
         products = Product.objects.all()
         product_count = Product.objects.count()
+        brands = Brand.objects.all()
         page = request.GET.get('page', 1)
         paginator = Paginator(products, 6)
         try:
@@ -90,6 +94,7 @@ def all_products(request):
     context = {
         'title': 'All Products',
         'products': products,
+        'brands': brands,
         'product_count': product_count,
         'slider_max_price': slider_price.get("price__max"),
         }
@@ -102,6 +107,17 @@ def filter_category(request):
         products = Product.objects.filter(category_id=cat_id)
         product_count = products.count()
         return render(request, 'store/filter.html', {'products': products, 'product_count': product_count})
+    
+    
+def filter_brand(request):
+    if request.is_ajax():
+        data=request.body.decode('utf-8')
+        brand_id = data[-1]
+        products = Product.objects.filter(brand_id=brand_id)
+        product_count = products.count()
+        return render(request, 'store/filter.html', {'products': products, 'product_count': product_count})
+    
+    
     
 def filter_price_range(request):
     if request.is_ajax():

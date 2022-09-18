@@ -167,9 +167,9 @@
                                         <img src="{{product.image.url}}" alt="Product image" class="product-image" style="height: 100%; object-fit: cover;">
                                     </a>
 
-                                    <div class="product-action-vertical">
+                                    {% comment %} <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
-                                    </div><!-- End .product-action -->
+                                    </div><!-- End .product-action --> {% endcomment %}
 
                                     <div class="product-action">
                                     <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart" title="Add to cart"><span>Add to Cart</span></a>
@@ -267,29 +267,11 @@
                             }
                         }
                     }'>
+                    {% for brand in brands %}
                     <a href="#" class="brand">
-                        <img src="{% static 'assets/images/brands/1.png' %} " alt="Brand Name">
+                        <img src="{{brand.file.url}}" alt="{{brand.name}}">
                     </a>
-
-                    <a href="#" class="brand">
-                        <img src="{% static 'assets/images/brands/2.png' %} " alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{% static 'assets/images/brands/3.png' %} " alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{% static 'assets/images/brands/4.png' %} " alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{% static 'assets/images/brands/5.png' %} " alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{% static 'assets/images/brands/6.png' %} " alt="Brand Name">
-                    </a>
+                    {% endfor %}
                 </div><!-- End .owl-carousel -->
             </div><!-- End .container -->
 

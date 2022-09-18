@@ -1,6 +1,8 @@
 from django.db import models
 from category.models import Category
 from django.urls import reverse
+
+from general.models import Brand
 # Create your models here.
 class Product(models.Model):
 
@@ -14,6 +16,7 @@ class Product(models.Model):
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField()
     description = models.TextField(null=True,blank=True)
     image = models.ImageField(upload_to="products")
