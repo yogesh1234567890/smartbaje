@@ -1,7 +1,7 @@
 from pathlib import Path
 from .config import *
 from django.contrib.messages import constants as messages
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,6 +31,8 @@ DEFAULT_APPS = [
     'django.contrib.staticfiles',
     'treebeard'
 ]
+
+
 CUSTOM_APPS=[
     'accounts',
     'category',
@@ -56,6 +59,8 @@ THIRD_PARTY_APPS=[
     'ckeditor',
     'import_export',
 
+    "sslserver",
+
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
@@ -74,10 +79,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'smartbaje.urls'
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        # 'DIRS': [os.path.join(BASE_DIR,'templates'), ],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,6 +145,7 @@ SITE_ID = 2
 # LOGIN_URL = 'login'
 # LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'store:store'
+
 AUTH_USER_MODEL = 'accounts.Account'
 # ACCOUNT_AUTHENTICATION_METHOD = 'email'
 # ACCOUNT_EMAIL_REQUIRED = True
@@ -146,7 +155,14 @@ AUTH_USER_MODEL = 'accounts.Account'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', 
     'allauth.account.auth_backends.AuthenticationBackend',
-     )
+
+
+    )
+
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
+
+
+acd = None
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -162,6 +178,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
@@ -198,6 +215,7 @@ SESSION_COOKIE_SECURE = True
 # ACCOUNT_UNIQUE_EMAIL = True
 # ACCOUNT_USERNAME_REQUIRED = False
 # ACCOUNT_USER_MODEL_USERNAME_FILED = None
+
 
 
 
@@ -285,3 +303,5 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+# print("==============================================================")

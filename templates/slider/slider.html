@@ -1,0 +1,55 @@
+
+<div class="intro-slider-container mb-5">
+    <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" 
+        data-owl-options='{
+
+            "autoplay": true,
+        
+            "responsiveClass": true,
+            "autoHeight": true,
+            "autoplayTimeout": 4000,
+            "smartSpeed": 800,
+            "nav": true,
+
+            "dots": true,
+            "nav": false,
+            "responsive": {
+                "1200": {
+                    "nav": true,
+                    "dots": true
+                }
+            }
+        }' >
+        {% if promotions %}
+        {% for promotion in promotions %}
+        <div class="intro-slide" style="background-image: url({{promotion.image.url}});">
+            <div class="container intro-content">
+                <div class="row justify-content-end">
+                    <div class="col-auto col-sm-7 col-md-6 col-lg-5">
+                        {% if promotion.product %}
+                        <h3 class="intro-subtitle text-third">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
+                        <h1 class="intro-title">{{promotion.product.name}}</h1>
+
+                        <div class="intro-price">
+                            <sup class="intro-old-price">Rs. {{promotion.product.price}}</sup>
+                            {% if promotion.discounted_price%}
+                            <span class="text-third">
+                                Rs. {{promotion.discounted_price}} 
+                            </span>
+                            {% endif %}
+                        </div><!-- End .intro-price -->
+                        {% endif %}
+                        <a href="#" class="btn btn-primary btn-round">
+                            <span>Shop Now</span>
+                            <i class="icon-long-arrow-right"></i>
+                        </a>
+                    </div><!-- End .col-lg-11 offset-lg-1 -->
+                </div><!-- End .row -->
+            </div><!-- End .intro-content -->
+        </div><!-- End .intro-slide -->
+        {% endfor %}
+        {% endif %}
+         </div><!-- End .intro-slider owl-carousel owl-simple -->
+
+    <span class="slider-loader"></span><!-- End .slider-loader -->
+</div><!-- End .intro-slider-container -->
