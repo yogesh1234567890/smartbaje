@@ -6,6 +6,9 @@ from allauth.socialaccount.signals import social_account_added
 from allauth.socialaccount.signals import pre_social_login
 from allauth.socialaccount.models import SocialAccount
 
+
+from django.contrib.auth.models import User
+
 from django.db.models.signals import post_save
 
 from allauth.account.signals import user_signed_up
@@ -25,7 +28,7 @@ user_unsubscribed = Signal()
 # # social_account_added = Signal()
 
 
-User = get_user_model()
+# User = get_user_model()
 
 
 def user_signedUP(request, user, **kwargs):
@@ -93,7 +96,7 @@ social_account_added = Signal(providing_args=["request", "sociallogin"])
 
 
 
-@receiver(post_save, sender = SocialAccount)
+@receiver(post_save, sender = User)
 def socailAccount(sender, instance, created, **kwargs):
     if created:
         print("it is created")
