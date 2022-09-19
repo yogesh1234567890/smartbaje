@@ -3,26 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserM
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Create your models here.
-from allauth.socialaccount.signals import pre_social_login
-from allauth.socialaccount.signals import social_account_added
-
-
-
-
-@receiver(pre_social_login)
-def before_login(sender, **kwargs):
-    print("account has been created-----------------------------------")
-
-
-
-@receiver(social_account_added)
-def activate_user(sender, **kwargs):
-    
-    print("account has been created-----------------------------------")
-
-
-
-
 
 
 class MyAccountManager(BaseUserManager):
