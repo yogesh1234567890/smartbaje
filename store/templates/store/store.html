@@ -79,7 +79,11 @@
                                 <a href="{% url 'category:products_by_category' category.slug %}" class="cat-block">
                                     <figure>
                                         <span>
+                                            {% if category.image %}
                                             <img src="{{category.image.url}}" alt="Category image">
+                                            {% else %}
+                                            <img src="{% static 'images/demos/demo-1/categories/cat-1.jpg' %}" alt="Category image">
+                                            {% endif %}
                                         </span>
                                     </figure>
                 

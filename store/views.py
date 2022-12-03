@@ -86,6 +86,8 @@ def all_products(request):
         products = Product.objects.all()
         product_count = Product.objects.count()
         brands = Brand.objects.all()
+        promotions = DealsAndPromotions.objects.all()
+        Product_offers = ProductOffers.objects.all()
         page = request.GET.get('page', 1)
         paginator = Paginator(products, 6)
         try:
@@ -102,6 +104,8 @@ def all_products(request):
         'products': products,
         'brands': brands,
         'product_count': product_count,
+        'Product_offers': Product_offers,
+        'promotions': promotions,
         'slider_max_price': slider_price.get("price__max"),
         }
     return render(request, 'store/all_products.html', context)

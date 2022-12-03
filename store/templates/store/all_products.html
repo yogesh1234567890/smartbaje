@@ -1,327 +1,318 @@
 {% extends 'base.html' %} {% load static %} {% block content%}
+<style>
+   .intro-slide {
+   background-color: red;
+   transition: all ease 1s;
+   }
+</style>
 <main class="main">
-  <div
-    class="page-header text-center"
-    style="background-image: url('assets/images/page-header-bg.jpg')"
-  >
-    <div class="container">
-      <h1 class="page-title">Shop<span></span></h1>
-    </div>
-    <!-- End .container -->
-  </div>
-  <!-- End .page-header -->
-  <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
-    <div class="container">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Shop</li>
-      </ol>
-    </div>
-    <!-- End .container -->
-  </nav>
-  <!-- End .breadcrumb-nav -->
-
-  <div class="page-content">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9 change-price-range">
-          <div class="toolbox">
-            <div class="toolbox-left">
-              <div class="toolbox-info">
-                Showing
-                <span>{{product_count}} of {{product_count}}</span> Products
-              </div>
-              <!-- End .toolbox-info -->
-            </div>
-            <!-- End .toolbox-left -->
-          </div>
-          <!-- End .toolbox -->
-
-          <div class="products mb-3">
-            <div class="row justify-content-center">
-              {% for product in products %}
-              <div class="col-6 col-md-4 col-lg-4">
-                <div class="product product-7 text-center">
-                  <figure class="product-media">
-                    <span class="product-label label-new">New</span>
-                    <a href="{{product.get_url }}">
-                      <img
-                        src="{{product.image.url}}"
-                        alt="Product image"
-                        class="product-image"
-                      />
-                    </a>
-
-                    <div class="product-action">
-                      <a
-                        href="{% url 'cart:add_cart' product.id %}"
-                        class="btn-product btn-cart"
-                        ><span>add to cart</span></a
-                      >
-                    </div>
-                    <!-- End .product-action -->
-                  </figure>
-                  <!-- End .product-media -->
-
-                  <div class="product-body">
-                    <div class="product-cat">
-                      <a href="#">{{product.category}}</a>
-                    </div>
-                    <!-- End .product-cat -->
-                    <h3 class="product-title">
-                      <a href="product.html">{{product.name}}</a>
-                    </h3>
-                    <!-- End .product-title -->
-                    <div class="product-price">Rs. {{product.price}}</div>
-                    <!-- End .product-price -->
+<div class="intro-slider-container mb-5">
+   <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{
+      "autoplay": true,
+      "responsiveClass": true,
+      "autoHeight": true,
+      "autoplayTimeout": 4000,
+      "smartSpeed": 800,
+      "nav": true,
+      "dots": true,
+      "nav": false,
+      "responsive": {
+      "1200": {
+      "nav": true,
+      "dots": true
+      }
+      }
+      }'>
+      {% if promotions %}
+      {% for promotion in promotions %}
+      <div class="intro-slide" style="background-image: url({{promotion.image.url}});">
+         <div class="container intro-content">
+            <div class="row justify-content-end">
+               <div class="col-auto col-sm-7 col-md-6 col-lg-5">
+                  {% if promotion.product %}
+                  <h3 class="intro-subtitle text-third">Deals and Promotions</h3>
+                  <!-- End .h3 intro-subtitle -->
+                  <h1 class="intro-title">{{promotion.product.name}}</h1>
+                  <div class="intro-price">
+                     <sup class="intro-old-price">Rs. {{promotion.product.price}}</sup>
+                     {% if promotion.discounted_price%}
+                     <span class="text-third">
+                     Rs. {{promotion.discounted_price}}
+                     </span>
+                     {% endif %}
                   </div>
-                  <!-- End .product-body -->
-                </div>
-                <!-- End .product -->
-              </div>
-              {% endfor %}
-              <!-- End .col-sm-6 col-lg-4 -->
+                  <!-- End .intro-price -->
+                  {% endif %}
+                  <a href="#" class="btn btn-primary btn-round">
+                  <span>Shop Now</span>
+                  <i class="icon-long-arrow-right"></i>
+                  </a>
+               </div>
+               <!-- End .col-lg-11 offset-lg-1 -->
             </div>
             <!-- End .row -->
-          </div>
-          <!-- End .products -->
-          {% if products.has_other_pages %}
-          <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-              {% if products.has_previous %}
-              <li class="page-item">
-                <a
-                  class="page-link page-link-prev"
-                  href="?page={{ products.previous_page_number }}"
-                  aria-label="Previous"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  <span aria-hidden="true"
-                    ><i class="icon-long-arrow-left"></i></span
-                  >Prev
-                </a>
-              </li>
-              {% else %}
-              <li class="page-item disabled">
-                <a
-                  class="page-link page-link-prev"
-                  href="#"
-                  aria-label="Previous"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  <span aria-hidden="true"
-                    ><i class="icon-long-arrow-left"></i></span
-                  >Prev
-                </a>
-              </li>
-              {% endif %}
-
-              {% for i in products.paginator.page_range %} 
-              {% if products.number == i %}
-              <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">{{ i }}</a>
-              </li>
-              {% else %}
-              <li class="page-item">
-                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-              </li>
-              {% endif %} {% endfor %}
-              {% if users.has_next %}
-              <li class="page-item">
-                <a
-                  class="page-link page-link-next"
-                  href="?page={{ products.next_page_number }}"
-                  aria-label="Next"
-                >
-                  Next
-                  <span aria-hidden="true"
-                    ><i class="icon-long-arrow-right"></i
-                  ></span>
-                </a>
-              </li>
-              {% else %}
-              <li class="page-item disabled">
-                <a
-                  class="page-link page-link-next"
-                  href="#"
-                  aria-disabled="true"
-                >
-                  Next
-                  <span aria-hidden="true"
-                    ><i class="icon-long-arrow-right"></i
-                  ></span>
-                </a>
-              </li>
-              {% endif %}
-            </ul>
-          </nav>
-          {% endif %}
-        </div>
-        <!-- End .col-lg-9 -->
-        <aside class="col-lg-3 order-lg-first">
-          <div class="sidebar sidebar-shop">
-            <div class="widget widget-clean">
-              <label>Filters:</label>
-            </div>
-            <!-- End .widget widget-clean -->
-
-            <div class="widget widget-collapsible">
-              <h3 class="widget-title">
-                <a
-                  data-toggle="collapse"
-                  href="#widget-1"
-                  role="button"
-                  aria-expanded="true"
-                  aria-controls="widget-1"
-                >
-                  Category
-                </a>
-              </h3>
-              <!-- End .widget-title -->
-
-              <div class="collapse show" id="widget-1">
-                <div class="widget-body">
-                  <div class="filter-items filter-items-count">
-                    {% for category in links %}
-                    <div class="filter-item">
-                      <div class="custom-control custom-checkbox">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input filter-category"
-                          id="{{category.id}}"
-                        />
-                        <label
-                          class="custom-control-label"
-                          for="{{category.id}}"
-                          >{{category.name}}</label
-                        >
-                      </div>
-                      <!-- End .custom-checkbox -->
-                      <span class="item-count"
-                        >{{category.product_set.count}}</span
-                      >
-                    </div>
-                    <!-- End .filter-item -->
-                    {% endfor %}
-                  </div>
-                  <!-- End .filter-items -->
-                </div>
-                <!-- End .widget-body -->
-              </div>
-              <!-- End .collapse -->
-            </div>
-
-            <div class="widget widget-collapsible">
-              <h3 class="widget-title">
-                <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
-                    Brand
-                </a>
-            </h3><!-- End .widget-title -->
-
-            <div class="collapse show" id="widget-4">
-              <div class="widget-body">
-                <div class="filter-items filter-items-count">
-                  {% for brand in brands %}
-                  <div class="filter-item ">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="brand-{{brand.id}}" class="custom-control-input filter-brand" id="brand-{{brand.id}}"/>
-                      <label class="custom-control-label" for="brand-{{brand.id}}">{{brand.name| title}}</label>
-                    </div><!-- End .custom-checkbox -->
-                    <span class="item-count"
-                        >{{brand.product_set.count}}</span
-                      >
-                  </div><!-- End .filter-item -->
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-              </div>
-
-            <!-- End .widget -->
-            <div class="widget widget-collapsible">
-              <h3 class="widget-title">
-                <a
-                  data-toggle="collapse"
-                  href="#widget-5"
-                  role="button"
-                  aria-expanded="true"
-                  aria-controls="widget-5"
-                >
-                  Price
-                </a>
-              </h3>
-              <!-- End .widget-title -->
-
-              <div class="collapse show" id="widget-5">
-                <div class="widget-body">
-                  <div class="filter-price">
-                    <div class="filter-price-text">
-                      Price Range:
-                      <span id="filter-price-range"></span>
-                    </div>
-                    <!-- End .filter-price-text -->
-                    <input type="hidden" class="slider_max_value" value={{slider_max_price}}>
-                    <div id="price-slider"></div>
-                    <!-- End #price-slider -->
-                  </div>
-                  <!-- End .filter-price -->
-                </div>
-                <!-- End .widget-body -->
-              </div>
-              <!-- End .collapse -->
-            </div>
-            <!-- End .widget -->
-          </div>
-          <!-- End .sidebar sidebar-shop -->
-        </aside>
-        <!-- End .col-lg-3 -->
+         </div>
+         <!-- End .intro-content -->
       </div>
-      <!-- End .row -->
-    </div>
-    <!-- End .container -->
-  </div>
-  <!-- End .page-content -->
+      <!-- End .intro-slide -->
+      {% endfor %}
+      {% endif %}
+   </div>
+   <!-- End .intro-slider owl-carousel owl-simple -->
+   <span class="slider-loader"></span><!-- End .slider-loader -->
+</div>
+<!-- End .intro-slider-container -->
+<main class="main">
+   <!-- End .page-header -->
+   <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+      <div class="container">
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Shop</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Shop</li>
+         </ol>
+      </div>
+      <!-- End .container -->
+   </nav>
+   <!-- End .breadcrumb-nav -->
+   <div class="page-content">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-9 change-price-range">
+               <div class="toolbox">
+                  <div class="toolbox-left">
+                     <div class="toolbox-info">
+                        Showing
+                        <span>{{product_count}} of {{product_count}}</span> Products
+                     </div>
+                     <!-- End .toolbox-info -->
+                  </div>
+                  <!-- End .toolbox-left -->
+               </div>
+               <!-- End .toolbox -->
+               <div class="products mb-3">
+                  <div class="row justify-content-center">
+                     {% for product in products %}
+                     <div class="col-6 col-md-4 col-lg-4">
+                        <div class="product product-7 text-center">
+                           <figure class="product-media">
+                              <span class="product-label label-new">New</span>
+                              <a href="{{product.get_url }}">
+                              <img src="{{product.image.url}}" alt="Product image" class="product-image" />
+                              </a>
+                              <div class="product-action">
+                                 <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart"><span>add to
+                                 cart</span></a>
+                              </div>
+                              <!-- End .product-action -->
+                           </figure>
+                           <!-- End .product-media -->
+                           <div class="product-body">
+                              <div class="product-cat">
+                                 <a href="#">{{product.category}}</a>
+                              </div>
+                              <!-- End .product-cat -->
+                              <h3 class="product-title">
+                                 <a href="product.html">{{product.name}}</a>
+                              </h3>
+                              <!-- End .product-title -->
+                              <div class="product-price">Rs. {{product.price}}</div>
+                              <!-- End .product-price -->
+                           </div>
+                           <!-- End .product-body -->
+                        </div>
+                        <!-- End .product -->
+                     </div>
+                     {% endfor %}
+                     <!-- End .col-sm-6 col-lg-4 -->
+                  </div>
+                  <!-- End .row -->
+               </div>
+               <!-- End .products -->
+               {% if products.has_other_pages %}
+               <nav aria-label="Page navigation">
+                  <ul class="pagination justify-content-center">
+                     {% if products.has_previous %}
+                     <li class="page-item">
+                        <a class="page-link page-link-prev" href="?page={{ products.previous_page_number }}"
+                           aria-label="Previous" tabindex="-1" aria-disabled="true">
+                        <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                        </a>
+                     </li>
+                     {% else %}
+                     <li class="page-item disabled">
+                        <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                        <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                        </a>
+                     </li>
+                     {% endif %}
+                     {% for i in products.paginator.page_range %}
+                     {% if products.number == i %}
+                     <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">{{ i }}</a>
+                     </li>
+                     {% else %}
+                     <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                     </li>
+                     {% endif %} {% endfor %}
+                     {% if users.has_next %}
+                     <li class="page-item">
+                        <a class="page-link page-link-next" href="?page={{ products.next_page_number }}" aria-label="Next">
+                        Next
+                        <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                        </a>
+                     </li>
+                     {% else %}
+                     <li class="page-item disabled">
+                        <a class="page-link page-link-next" href="#" aria-disabled="true">
+                        Next
+                        <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                        </a>
+                     </li>
+                     {% endif %}
+                  </ul>
+               </nav>
+               {% endif %}
+            </div>
+            <!-- End .col-lg-9 -->
+            <aside class="col-lg-3 order-lg-first">
+               <div class="sidebar sidebar-shop">
+                  <div class="widget widget-clean">
+                     <label>Filters:</label>
+                  </div>
+                  <!-- End .widget widget-clean -->
+                  <div class="widget widget-collapsible">
+                     <h3 class="widget-title">
+                        <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true"
+                           aria-controls="widget-1">
+                        Category
+                        </a>
+                     </h3>
+                     <!-- End .widget-title -->
+                     <div class="collapse show" id="widget-1">
+                        <div class="widget-body">
+                           <div class="filter-items filter-items-count">
+                              {% for category in links %}
+                              <div class="filter-item">
+                                 <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input filter-category" id="{{category.id}}" />
+                                    <label class="custom-control-label" for="{{category.id}}">{{category.name}}</label>
+                                 </div>
+                                 <!-- End .custom-checkbox -->
+                                 <span class="item-count">{{category.product_set.count}}</span>
+                              </div>
+                              <!-- End .filter-item -->
+                              {% endfor %}
+                           </div>
+                           <!-- End .filter-items -->
+                        </div>
+                        <!-- End .widget-body -->
+                     </div>
+                     <!-- End .collapse -->
+                  </div>
+                  <div class="widget widget-collapsible">
+                     <h3 class="widget-title">
+                        <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true"
+                           aria-controls="widget-4">
+                        Brand
+                        </a>
+                     </h3>
+                     <!-- End .widget-title -->
+                     <div class="collapse show" id="widget-4">
+                        <div class="widget-body">
+                           <div class="filter-items filter-items-count">
+                              {% for brand in brands %}
+                              <div class="filter-item ">
+                                 <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="brand-{{brand.id}}" class="custom-control-input filter-brand"
+                                       id="brand-{{brand.id}}" />
+                                    <label class="custom-control-label" for="brand-{{brand.id}}">{{brand.name| title}}</label>
+                                 </div>
+                                 <!-- End .custom-checkbox -->
+                                 <span class="item-count">{{brand.product_set.count}}</span>
+                              </div>
+                              <!-- End .filter-item -->
+                              {% endfor %}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- End .widget -->
+                  <div class="widget widget-collapsible">
+                     <h3 class="widget-title">
+                        <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true"
+                           aria-controls="widget-5">
+                        Price
+                        </a>
+                     </h3>
+                     <!-- End .widget-title -->
+                     <div class="collapse show" id="widget-5">
+                        <div class="widget-body">
+                           <div class="filter-price">
+                              <div class="filter-price-text">
+                                 Price Range:
+                                 <span id="filter-price-range"></span>
+                              </div>
+                              <!-- End .filter-price-text -->
+                              <input type="hidden" class="slider_max_value" value={{slider_max_price}}>
+                              <div id="price-slider"></div>
+                              <!-- End #price-slider -->
+                           </div>
+                           <!-- End .filter-price -->
+                        </div>
+                        <!-- End .widget-body -->
+                     </div>
+                     <!-- End .collapse -->
+                  </div>
+                  <!-- End .widget -->
+               </div>
+               <!-- End .sidebar sidebar-shop -->
+            </aside>
+            <!-- End .col-lg-3 -->
+         </div>
+         <!-- End .row -->
+      </div>
+      <!-- End .container -->
+   </div>
+   <!-- End .page-content -->
 </main>
 <!-- End .main -->
 {% endblock content%} {% block javascript %}
 <script src="{% static 'assets/js/nouislider.min.js' %}"></script>
 <script>
-  $(document).on("click", ".filter-category", function (event) {
-    const csrftoken = getCookie("csrftoken");
-    $.ajax({
-      type: "POST",
-      url: "{% url 'store:filter' %}",
-      data: {
-        csrfmiddlewaretoken: csrftoken,
-        category: $(this).attr("id"),
-      },
-      success: function (data) {
-        $(".col-lg-9").html(data);
-      },
-    });
-  });
-
-  $(document).on("click", ".filter-brand", function (event) {
-    const csrftoken = getCookie("csrftoken");
-    $.ajax({
-      type: "POST",
-      url: "{% url 'store:brand-filter' %}",
-      data: {
-        csrfmiddlewaretoken: csrftoken,
-        brand: $(this).attr("id"),
-      },
-      success: function (data) {
-        $(".col-lg-9").html(data);
-      },
-    });
-  });
-
-  $('input[type="checkbox"]').on('change', function() {
-    $('input[type="checkbox"]').not(this).prop('checked', false);
- });
+   $(document).on("click", ".filter-category", function (event) {
+     const csrftoken = getCookie("csrftoken");
+     $.ajax({
+       type: "POST",
+       url: "{% url 'store:filter' %}",
+       data: {
+         csrfmiddlewaretoken: csrftoken,
+         category: $(this).attr("id"),
+       },
+       success: function (data) {
+         $(".col-lg-9").html(data);
+       },
+     });
+   });
+   
+   $(document).on("click", ".filter-brand", function (event) {
+     const csrftoken = getCookie("csrftoken");
+     $.ajax({
+       type: "POST",
+       url: "{% url 'store:brand-filter' %}",
+       data: {
+         csrfmiddlewaretoken: csrftoken,
+         brand: $(this).attr("id"),
+       },
+       success: function (data) {
+         $(".col-lg-9").html(data);
+       },
+     });
+   });
+   
+   $('input[type="checkbox"]').on('change', function () {
+     $('input[type="checkbox"]').not(this).prop('checked', false);
+   });
 </script>
-
 {% endblock javascript %}
