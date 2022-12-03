@@ -1,11 +1,13 @@
 from django.contrib import admin
 from .models import Category
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 class categoryAdmin(admin.ModelAdmin):
     def thumbnail(self, object):
         if object.image:
-            return format_html('<img src="{}" width="30">'.format(object.image.url))
+            return format_html('<img src="{}" style="max-width: 300px; max-height: 300px;">'.format(object.image.url))
         else:
             return 'No Image Found'
     thumbnail.short_description = 'Category Image'
@@ -15,16 +17,8 @@ class categoryAdmin(admin.ModelAdmin):
     search_fields = ["name","slug"]
     list_display_links = ('thumbnail','name','slug')
     list_per_page = 20
-    
-    fieldsets = (
-    (None, {
-        'classes': ('tab-general',),
-        'fields' : ('image','name','slug') 
-    }),
-    )
+    readonly_fields = ['thumbnail',]
 
-    tabs = [
-        ("General", ["tab-general"]),
-    ]
+    search_fields = ['name','slug']
 
 admin.site.register(Category,categoryAdmin)

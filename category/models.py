@@ -10,7 +10,7 @@ class Category(models.Model):
         return self.name
 
     name=models.CharField(max_length=100)
-    description=models.CharField(max_length=500,null=True,blank=True)
+    description=models.TextField(null=True,blank=True)
     image = models.ImageField(upload_to="categories",null=True,blank=True)
     slug=models.SlugField(max_length=100, unique=True)
 
