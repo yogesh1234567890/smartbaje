@@ -54,8 +54,10 @@ THIRD_PARTY_APPS=[
     'django_tabbed_changeform_admin',
     'crispy_forms',
     'ckeditor',
-    'import_export',
-    "sslserver",
+    # 'import_export',
+    # "sslserver",
+    "django_summernote",
+    'django_admin_listfilter_dropdown',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_PARTY_APPS

@@ -19,6 +19,7 @@ urlpatterns = [
     path('orders/', include('orders.urls'), name="orders"),
     path('category/', include('category.urls'), name="category"),
     path('general/', include('general.urls'), name="general"),
+    path('summernote/', include('django_summernote.urls')),
     
 ]
 AdminSite.index_template = 'admin/index.html'
